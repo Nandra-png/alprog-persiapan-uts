@@ -255,6 +255,32 @@ code.inline-c{
     <p>3. <b>Zero Tolerance String Null-Terminator:</b> Array karakter di C wajib berakhiran <code class="inline-c">'\0'</code>. Mengalokasikan array ukuran <span class="m">N</span> untuk menampung teks <span class="m">N</span> huruf adalah bug fatal klasik.</p>
   </div>
 
+    <div class="sec">Blueprint UTS Versi Dosen — 5 Bagian</div>
+  <style>
+    .bp{width:100%}
+    .bp th,.bp td{white-space:normal;text-align:left;padding:5px 9px;font-family:inherit;font-size:13.5px;line-height:1.45}
+    .bp th:nth-child(1),.bp td:nth-child(1),.bp th:nth-child(4),.bp td:nth-child(4){text-align:center;width:58px}
+  </style>
+  <p>Ini urutan yang dipakai dosen waktu nyusun soal kelas, bukan tebakan: empat bagian pertama <b>analisis &amp; desain</b>, bagian kelima <b>murni ngoding</b>. Kolom modul nunjukin di bagian mana materi itu dibahas di halaman ini.</p>
+  <div class="tblwrap">
+    <table class="bp">
+      <thead><tr><th>#</th><th>Bagian</th><th>Bentuk soal</th><th>Modul</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Design algorithm</td><td>Flowchart &amp; pseudocode</td><td>M1</td></tr>
+        <tr><td>2</td><td>Algorithm analysis from code</td><td>"Jelasin kodenya ngapain?" · "Benerin kode"</td><td>M2–M7</td></tr>
+        <tr><td>3</td><td>Logic operator</td><td>Operator C di dalam ekspresi (aritmatika, relasional, logika)</td><td>M3</td></tr>
+        <tr><td>4</td><td>Selection case</td><td>Bikin IF ELSE / switch</td><td>M4</td></tr>
+        <tr><td>5</td><td>Full C case</td><td>Ngoding penuh: function, recursion, pointer, array, loop, selection</td><td>M5–M7</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p><b>Cara pakai tabel ini:</b> bagian 2 itu jenis soal yang paling sering bikin mahasiswa kehilangan poin, karena bukan hafalan — lu harus bisa baca kode orang lain lalu bilang "ini ngapain" dan "ini salahnya di mana". Latihannya ada di Set 2 halaman latihan, plus modul M2–M7 yang memang dibangun dari pola itu.</p>
+  <div class="trap-card">
+    <b>Yang belum diumumkan (jangan diasumsikan):</b>
+    <p>Jumlah soal per bagian, bobot nilai, tanggal, dan apakah UTS-nya tulis tangan atau di komputer. Tabel di atas isinya <b>lima bagian materi</b>, bukan janji komposisi soal. Kalau dosen ngumumin bobot, catat di sini dan sesuaikan prioritas belajar lu.</p>
+  </div>
+
+
   <div class="sec">Peta 7 Topik Inti Ujian</div>
   <p>1. <b>Algorithm, Flowchart &amp; Pseudo-code (Sesi 1-2):</b> Analisis IPO (Input-Process-Output), simbol terminator/decision/preparation, Structure Theorem (Sequence, Selection, Repetition).</p>
   <p>2. <b>Sintaks Dasar C &amp; Formatted I/O (Sesi 3-4):</b> Struktur fungsi <code class="inline-c">main()</code>, tokens, escape sequences, specifier <code class="inline-c">%d, %f, %.2f, %c, %s, %[^

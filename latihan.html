@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Drill UTS AlProg — 24 Soal Tipe Ujian</title>
+<title>Drill UTS AlProg — 24 Soal + 4 Soal Kelas</title>
 <style>
 
 :root{
@@ -209,9 +209,9 @@ code.inline-c{background:rgba(30,30,30,.08);color:#a31515;padding:1px 5px;border
 
 <section class="sheet" id="cara">
   <div class="head">
-    <div class="badge">24</div>
+    <div class="badge">28</div>
     <div>
-      <h2>Drill UTS AlProg — 24 Soal Tipe Ujian</h2>
+      <h2>Drill UTS AlProg — 24 Soal + 4 Soal Kelas</h2>
       <div class="sub">Semua soal di bawah ini bentuknya sama dengan yang keluar di kuis &amp; UTS BINUS: tracing, fall-through, bitwise, pointer offset. Kerjain di kertas dulu, baru buka jawaban.</div>
     </div>
   </div>
@@ -676,6 +676,228 @@ ENDIF
         <p>Fungsi memanggil dirinya terus-menerus sampai <b>stack overflow</b> — program crash (segmentation fault), bukan menghasilkan output salah.</p>
         <p>Dua syarat wajib: (1) <b>base case</b> — kondisi yang berhenti tanpa rekursi, (2) <b>reduction step</b> — argumen harus bergerak menuju base case. Kalau base case ada tapi argumen tidak mengecil (<code class="inline-c">f(n)</code> memanggil <code class="inline-c">f(n)</code>), hasilnya sama: infinite recursion.</p>
         <p>Contoh base case faktorial: <code class="inline-c">if (n &lt;= 1) return 1;</code> — tanpa baris ini, <code class="inline-c">n</code> terus turun ke negatif dan tidak pernah berhenti.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section class="sheet" id="set2">
+  <div class="head">
+    <div class="badge">4</div>
+    <div>
+      <h2>Set 2 — Soal Kelas (KUIS 1 + Tugas Pointer)</h2>
+      <div class="sub">Ini soal asli dari kelas lu, bukan soal karangan. Semua program C di bawah sudah gua compile pakai gcc lalu gua jalankan — output yang tertulis itu hasil eksekusi beneran.</div>
+    </div>
+  </div>
+
+  <div class="trap-card">
+    <b>Kenapa soal ini penting:</b>
+    <p>KUIS 1 isinya persis tiga pola yang paling sering keluar: <b>loop + akumulator</b>, <b>validasi string</b>, dan <b>array + percabangan</b>. Nomor 4 (pointer) nempel ke bagian 5 blueprint: ngoding penuh. Kalau lu bisa keempatnya tanpa buka catatan, bagian 1–4 UTS harusnya aman.</p>
+  </div>
+
+  <div class="drill">
+    <span class="qno">25</span><span class="qtag">KUIS 1 · No 1</span>
+    <p><b>Soal:</b> Jika <code class="inline-c">n</code> adalah variabel integer, nilainya diinput pengguna dengan asumsi 1 ≤ n ≤ 1000.</p>
+    <p>a) Buat algoritma untuk menampung input nilai n. b) Cetak setiap angka kelipatan 5. c) Hitung dan cetak jumlah angka kelipatan 5. d) Tulis dalam bahasa C dan pseudo-code.</p>
+
+    <details>
+      <summary>Cek jawaban</summary>
+      <div class="ans">
+        <p><b>Pseudo-code (notasi BINUS):</b></p>
+        <pre class="c-code">DECLARE n, i, jumlah AS INTEGER
+INPUT n
+jumlah = 0
+FOR i = 5 TO n STEP 5
+    PRINT i
+    jumlah = jumlah + i
+ENDFOR
+PRINT "Jumlah = ", jumlah</pre>
+        <p><b>Bahasa C:</b></p>
+        <pre class="c-code">#include &lt;stdio.h&gt;
+
+int main() {
+  int n;
+  int i;
+  int jumlah = 0;
+
+  printf("n = ");
+  scanf("%d", &amp;n);
+
+  for (i = 5; i &lt;= n; i = i + 5) {
+    printf("%d\n", i);
+    jumlah = jumlah + i;
+  }
+
+  printf("Jumlah = %d\n", jumlah);
+  return 0;
+}</pre>
+        <p><b>Hasil eksekusi:</b> input <code class="inline-c">23</code> → cetak <code class="inline-c">5 10 15 20</code>, lalu <code class="inline-c">Jumlah = 50</code>. Input <code class="inline-c">1000</code> → 200 angka, <code class="inline-c">Jumlah = 100500</code>.</p>
+        <p><b>Tiga jebakan di soal ini:</b></p>
+        <p>1. <b>Kenapa mulai dari 5, bukan 1?</b> Kalau lu tulis <code class="inline-c">for (i = 1; i &lt;= n; i++)</code> lalu di dalamnya <code class="inline-c">if (i % 5 == 0)</code>, hasilnya benar tapi loop jalan 1000 kali buat 200 angka. Soal minta "setiap angka kelipatan 5", jadi step 5 langsung lebih tepat dan lebih murah.</p>
+        <p>2. <b>Akumulator wajib 0 di awal.</b> Kalau <code class="inline-c">jumlah</code> tidak diinisialisasi, isinya sampah memori dan hasil penjumlahan jadi acak.</p>
+        <p>3. <b>Kalau n &lt; 5</b> (misal n = 3), loop tidak jalan sekali pun dan <code class="inline-c">Jumlah = 0</code>. Itu jawaban yang benar, bukan error — jangan panik kalau dosen ngetes n kecil.</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="drill">
+    <span class="qno">26</span><span class="qtag">KUIS 1 · No 2</span>
+    <p><b>Soal:</b> Ada konstanta <code class="inline-c">const char NAMA[] = "agus";</code> dan <code class="inline-c">const char PWD[] = "123";</code>. Buat algoritma yang menerima input <code class="inline-c">nama_user</code> (4 huruf) dan <code class="inline-c">password</code> (3 karakter, diasumsikan sudah huruf kecil semua). Kalau keduanya cocok tampilkan <code class="inline-c">"Login Sukses"</code>, kalau salah satu tidak cocok tampilkan <code class="inline-c">"User atau Password salah"</code>. Tulis dalam bahasa C.</p>
+
+    <details>
+      <summary>Cek jawaban</summary>
+      <div class="ans">
+        <pre class="c-code">#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+int main() {
+  const char NAMA[] = "agus";
+  const char PWD[] = "123";
+  char nama_user[10];
+  char password[10];
+
+  printf("Nama : ");
+  scanf("%9s", nama_user);
+  printf("Pwd  : ");
+  scanf("%9s", password);
+
+  if (strcmp(nama_user, NAMA) == 0 &amp;&amp; strcmp(password, PWD) == 0) {
+    printf("Login Sukses\n");
+  } else {
+    printf("User atau Password salah\n");
+  }
+
+  return 0;
+}</pre>
+        <p><b>Hasil eksekusi:</b> <code class="inline-c">agus</code> + <code class="inline-c">123</code> → <code class="inline-c">Login Sukses</code>. <code class="inline-c">agus</code> + <code class="inline-c">124</code> → <code class="inline-c">User atau Password salah</code>. <code class="inline-c">agusx</code> + <code class="inline-c">123</code> → juga <code class="inline-c">User atau Password salah</code>.</p>
+        <p><b>Yang bikin poin hilang:</b></p>
+        <p>1. <b><code class="inline-c">strcmp</code> balikin 0 kalau sama.</b> Ini kebalikan intuisi. <code class="inline-c">if (strcmp(a, b))</code> artinya "kalau <b>beda</b>", bukan "kalau sama". Selalu tulis <code class="inline-c">== 0</code> biar otak lu nggak ketuker.</p>
+        <p>2. <b>Jangan pakai <code class="inline-c">==</code> buat string.</b> <code class="inline-c">nama_user == NAMA</code> itu membandingkan <b>alamat</b> array, bukan isinya. Hasilnya selalu false.</p>
+        <p>3. <b>Pakai <code class="inline-c">&amp;&amp;</code>, bukan <code class="inline-c">&amp;</code>.</b> <code class="inline-c">&amp;</code> itu bitwise AND: dua hasil <code class="inline-c">strcmp</code> (0 atau bukan-0) di-AND per bit, bisa jadi benar padahal salah satu salah.</p>
+        <p>4. <b>Lebar buffer.</b> Input 4 huruf butuh 5 slot (4 huruf + <code class="inline-c">'\0'</code>). Gua pakai 10 biar aman, dan <code class="inline-c">%9s</code> supaya tidak overflow kalau user ngetik panjang.</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="drill">
+    <span class="qno">27</span><span class="qtag">KUIS 1 · No 3</span>
+    <p><b>Soal:</b> Ada array integer 100 elemen. Isi setiap elemen dengan bilangan 100 sampai 1 (bukan 1 sampai 100) pakai looping. Setelah terisi, pakai looping lagi untuk mengecek tiap elemen — setiap kelipatan 10, cetak bilangan Indonesianya seperti di soal (<code class="inline-c">100 Seratus</code> sampai <code class="inline-c">10 Sepuluh</code>).</p>
+
+    <details>
+      <summary>Cek jawaban</summary>
+      <div class="ans">
+        <pre class="c-code">#include &lt;stdio.h&gt;
+
+int main() {
+  int data[100];
+  int i;
+
+  for (i = 0; i &lt; 100; i++) {
+    data[i] = 100 - i;
+  }
+
+  for (i = 0; i &lt; 100; i++) {
+    if (data[i] % 10 == 0) {
+      switch (data[i] / 10) {
+        case 10: printf("100 Seratus\n"); break;
+        case 9:  printf("90 Sembilan puluh\n"); break;
+        case 8:  printf("80 Delapan puluh\n"); break;
+        case 7:  printf("70 Tujuh puluh\n"); break;
+        case 6:  printf("60 Enam puluh\n"); break;
+        case 5:  printf("50 Lima puluh\n"); break;
+        case 4:  printf("40 Empat puluh\n"); break;
+        case 3:  printf("30 Tiga puluh\n"); break;
+        case 2:  printf("20 Dua puluh\n"); break;
+        case 1:  printf("10 Sepuluh\n"); break;
+      }
+    }
+  }
+
+  return 0;
+}</pre>
+        <p><b>Hasil eksekusi (persis 10 baris, urut dari atas):</b></p>
+        <pre class="c-code">100 Seratus
+90 Sembilan puluh
+80 Delapan puluh
+70 Tujuh puluh
+60 Enam puluh
+50 Lima puluh
+40 Empat puluh
+30 Tiga puluh
+20 Dua puluh
+10 Sepuluh</pre>
+        <p><b>Kenapa pakai <code class="inline-c">switch (data[i] / 10)</code>?</b> Karena kelipatan 10 dari 10–100 kalau dibagi 10 hasilnya 1–10, jadi cukup 10 <code class="inline-c">case</code>. Kalau lu <code class="inline-c">switch (data[i])</code> langsung, butuh 10 case angka besar (100, 90, 80 …) — tetap benar, cuma lebih panjang.</p>
+        <p><b>Jebakan:</b> perhatikan <code class="inline-c">data[i] = 100 - i</code> — waktu <code class="inline-c">i = 0</code> isinya 100, waktu <code class="inline-c">i = 99</code> isinya 1. Kalau lu tulis <code class="inline-c">data[i] = i</code>, urutannya jadi 0–99 dan outputnya salah total. Dan karena array-nya turun, output juga otomatis turun (100 dulu, baru 90) — tidak perlu sorting.</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="drill">
+    <span class="qno">28</span><span class="qtag">Tugas BINUS · No 4</span>
+    <p><b>Soal:</b> Perhatikan program berikut.</p>
+    <pre class="c-code">#include &lt;stdio.h&gt;
+
+int main() {
+  int a = 10;
+  int b = 20;
+  int *p;
+  int *q;
+
+  p = &amp;a;
+  q = &amp;b;
+
+  *p = *p + 5;
+  *q = *p + *q;
+  p = q;
+  *p = *p - 3;
+
+  printf("a = %d\n", a);
+  printf("b = %d\n", b);
+  printf("*p = %d\n", *p);
+  printf("*q = %d\n", *q);
+
+  return 0;
+}</pre>
+    <p>1) Jelaskan perbedaan <code class="inline-c">p</code>, <code class="inline-c">*p</code>, dan <code class="inline-c">&amp;a</code>. 2) Tentukan 4 output program tanpa menjalankannya.</p>
+
+    <details>
+      <summary>Cek jawaban</summary>
+      <div class="ans">
+        <p><b>1) Beda p, *p, &amp;a:</b></p>
+        <div class="tblwrap">
+          <table>
+            <thead><tr><th>Tulisan</th><th>Artinya</th><th>Tipe</th><th>Isinya (setelah <code>p = &amp;a</code>)</th></tr></thead>
+            <tbody>
+              <tr><td><code>p</code></td><td>Variabel pointer — menyimpan alamat</td><td><code>int *</code></td><td>alamat variabel <code>a</code> (mis. <code>0x7ffd...</code>)</td></tr>
+              <tr><td><code>*p</code></td><td>Dereference — nilai di alamat yang ditunjuk p</td><td><code>int</code></td><td>10 (yaitu isi <code>a</code>)</td></tr>
+              <tr><td><code>&amp;a</code></td><td>Address-of — alamat variabel a</td><td><code>int *</code></td><td>alamat a, sama dengan isi <code>p</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Kalimat singkat buat jawaban ujian: <b><code class="inline-c">a</code> itu kotaknya, <code class="inline-c">&amp;a</code> itu nomor kotaknya, <code class="inline-c">p</code> itu kertas yang lu tulis nomor kotak, dan <code class="inline-c">*p</code> itu isi kotak yang nomornya lu tulis di kertas.</b> <code class="inline-c">p = q</code> cuma mengganti nomor di kertas — variabel <code>a</code> dan <code>b</code> tidak pindah.</p>
+
+        <p><b>2) Tabel tracing:</b></p>
+        <div class="tblwrap">
+          <table>
+            <thead><tr><th>Baris</th><th>p</th><th>q</th><th>a</th><th>b</th><th>*p</th><th>*q</th></tr></thead>
+            <tbody>
+              <tr><td>awal</td><td>—</td><td>—</td><td>10</td><td>20</td><td>—</td><td>—</td></tr>
+              <tr><td><code>p = &amp;a</code></td><td>&amp;a</td><td>—</td><td>10</td><td>20</td><td>10</td><td>—</td></tr>
+              <tr><td><code>q = &amp;b</code></td><td>&amp;a</td><td>&amp;b</td><td>10</td><td>20</td><td>10</td><td>20</td></tr>
+              <tr><td><code>*p = *p + 5</code></td><td>&amp;a</td><td>&amp;b</td><td><b>15</b></td><td>20</td><td>15</td><td>20</td></tr>
+              <tr><td><code>*q = *p + *q</code></td><td>&amp;a</td><td>&amp;b</td><td>15</td><td><b>35</b></td><td>15</td><td>35</td></tr>
+              <tr><td><code>p = q</code></td><td><b>&amp;b</b></td><td>&amp;b</td><td>15</td><td>35</td><td>35</td><td>35</td></tr>
+              <tr><td><code>*p = *p - 3</code></td><td>&amp;b</td><td>&amp;b</td><td>15</td><td><b>32</b></td><td>32</td><td>32</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><b>4 output (hasil gcc, cocok sama hitungan tangan):</b></p>
+        <pre class="c-code">a = 15
+b = 32
+*p = 32
+*q = 32</pre>
+        <p><b>Kalau lu jawab 29 29, lu salah di satu baris:</b> <code class="inline-c">p = q</code> dieksekusi <b>sebelum</b> <code class="inline-c">*p = *p - 3</code>. Jadi yang dikurangi 3 adalah <b>b</b> (35 → 32), bukan <b>a</b> (15). Urutan baris wajib dibaca atas ke bawah, satu per satu, jangan digabung di kepala.</p>
+        <p><b>Cara cepat ngerjain tipe soal ini di UTS (3 langkah):</b> (1) tulis kolom semua variabel termasuk <code class="inline-c">p</code> dan <code class="inline-c">q</code>; (2) setiap baris yang ada <code class="inline-c">*p</code> di kiri tanda sama-dengan, cari dulu <code class="inline-c">p</code> sekarang nunjuk ke siapa; (3) baru hitung angka. Baris <code class="inline-c">p = q</code> tidak mengubah angka apa pun — dia cuma mindahin panah.</p>
       </div>
     </details>
   </div>
