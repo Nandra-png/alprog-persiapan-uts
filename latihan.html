@@ -1,0 +1,688 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Drill UTS AlProg — 24 Soal Tipe Ujian</title>
+<style>
+
+:root{
+  --ink:#1c2430; --ink-soft:#4a5568; --red:#c0392b; --blue:#1f5fa8;
+  --paper:#fdfaf2; --rule:rgba(80,120,175,.14); --margin-line:rgba(215,65,65,.55);
+  --edge:#cac3ad; --desk:#e5e1d4; --ok:#1e7a3c;
+  --sticky:#fff9b0; --sticky-edge:#e9de89;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--desk);
+  background-image:radial-gradient(circle at 20% 0%,#f0ece0 0%,#d8d3c2 70%);
+  color:var(--ink);
+  font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  padding:22px 14px 90px;
+}
+.wrap{max-width:1520px;margin:0 auto;display:grid;
+  grid-template-columns:248px minmax(0,920px) 300px;gap:22px;align-items:start;justify-content:center}
+.rail{position:sticky;top:14px;max-height:calc(100vh - 28px);overflow-y:auto;overflow-x:hidden;padding:8px 4px 30px}
+.rail::-webkit-scrollbar{width:5px}
+.rail::-webkit-scrollbar-thumb{background:#c9c2ad;border-radius:3px}
+.panel{position:relative;background:linear-gradient(175deg,#fffbc7 0%,var(--sticky) 40%,#fef39c 100%);
+  border:1px solid var(--sticky-edge);border-radius:4px;
+  box-shadow:0 2px 4px rgba(60,50,20,.08),0 8px 18px rgba(60,50,20,.14);
+  padding:16px 15px;margin-bottom:16px}
+.panel h4{margin:0 0 10px;font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;
+  color:#61531e;border-bottom:1.5px dashed rgba(150,130,50,.3);padding-bottom:5px}
+.total{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:6px}
+.total b{font-size:20px;font-weight:800;color:#2c2206}
+.total span{font-size:11px;color:#61531e;font-weight:700}
+.pbar{height:6px;border-radius:999px;background:#e5dc9b;overflow:hidden;margin-bottom:10px}
+.pbar i{display:block;height:100%;background:var(--red);border-radius:999px}
+.road{list-style:none;margin:10px 0 0;padding:0;position:relative}
+.road::before{content:"";position:absolute;left:9px;top:8px;bottom:8px;width:1.5px;background:#d8cc8a}
+.road li{position:relative;padding:0 0 0 26px;margin:0 0 3px}
+.road a{display:block;text-decoration:none;color:#2b2308;font-size:12.5px;font-weight:700;line-height:1.35;
+  padding:5px 7px;border-radius:5px}
+.road a:hover{background:rgba(255,255,255,.6)}
+.road a small{display:block;font-size:10.5px;color:#61531e;font-weight:500;margin-top:1px}
+.road .dot{position:absolute;left:4px;top:10px;width:11px;height:11px;border-radius:50%;background:#fff;border:2px solid #b8ab6a}
+.road li.now .dot{border-color:var(--red);background:var(--red);box-shadow:0 0 0 3px rgba(192,57,43,.2)}
+.road li.now a{background:rgba(255,255,255,.8);color:var(--red)}
+main{min-width:0}
+.sheet{position:relative;background:var(--paper);
+  background-image:
+    linear-gradient(to right,transparent 0 84px,var(--margin-line) 84px 85.5px,transparent 85.5px),
+    repeating-linear-gradient(to bottom,transparent 0 33px,var(--rule) 33px 34px);
+  background-position:0 0,0 38px;border-radius:4px;border:1px solid #dcd5bf;
+  box-shadow:0 2px 0 #cfc8b4,0 10px 24px rgba(60,50,30,.15);
+  padding:32px 42px 48px 110px;font-size:15.5px;line-height:1.75;margin:0 0 26px;scroll-margin-top:14px}
+.sheet::before,.sheet::after{content:"";position:absolute;left:28px;width:22px;height:22px;border-radius:50%;
+  background:var(--desk);box-shadow:inset 0 2px 4px rgba(0,0,0,.24),0 0 0 1px #d3ccb8}
+.sheet::before{top:68px}.sheet::after{bottom:68px}
+.head{display:flex;align-items:flex-start;gap:15px;margin-bottom:10px}
+.badge{flex:0 0 auto;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:#fff;
+  border:2.5px solid var(--red);color:var(--red);font-weight:800;font-size:22px;box-shadow:2px 2px 0 rgba(192,57,43,.18)}
+.head h2{font-size:22px;font-weight:800;letter-spacing:-.01em;margin:0}
+.head .sub{font-size:13px;color:var(--ink-soft);font-weight:500;margin-top:3px}
+.sec{font-size:11.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);
+  margin:20px 0 6px;display:flex;align-items:center;gap:8px}
+.sec::after{content:"";flex:1;height:1px;background:#d8e2ee}
+p{margin:6px 0;background:rgba(253,250,242,.86)}
+.m{font-family:'Cambria Math',Cambria,Georgia,serif;font-style:italic}
+.m b{font-style:normal}
+.analogi{background:#fefbf2;border:1.5px dashed #c49742;border-left:5px solid #d48b14;border-radius:8px;padding:12px 15px;margin:12px 0}
+.analogi h4{margin:0 0 5px;color:#8f5600;font-size:14.5px;font-weight:800}
+.analogi p{margin:4px 0;font-size:13.5px;line-height:1.7;background:transparent}
+.analogi .kesimpulan{background:#fff;border:1px solid #ebd8b0;border-radius:6px;padding:8px 11px;margin-top:8px;
+  font-size:13px;color:#613e05;font-weight:700;line-height:1.6}
+.trap-card{background:#fff5f3;border:1.5px solid #f1cfc8;border-left:4px solid var(--red);border-radius:8px;padding:11px 15px;margin:12px 0}
+.trap-card b{color:var(--red);font-size:14px}
+.trap-card p{margin:4px 0;font-size:13.5px;line-height:1.7;background:transparent}
+.step{display:flex;gap:11px;margin:8px 0}
+.step .n{flex:0 0 auto;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--red);
+  color:#fff;font-size:12px;font-weight:800;margin-top:3px}
+.step .body{flex:1 1 auto;min-width:0;background:rgba(253,250,242,.86)}
+.step .body p{background:transparent}
+.ans{margin:12px 0 8px 34px;padding:9px 14px;border:2px solid var(--red);border-radius:4px;background:#fff7f5;line-height:1.7}
+.ans .lbl{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--red);display:block;margin-bottom:3px}
+.box{display:inline-block;border:2px double var(--ink);border-radius:3px;padding:2px 10px;background:#fffdf5}
+.ind{margin-left:34px;background:rgba(253,250,242,.86)}
+.big{margin:6px 0 6px 34px;font-size:17px;background:rgba(253,250,242,.86);padding:2px 0}
+.tblwrap{overflow-x:auto;margin:8px 0 8px 34px;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;margin:6px 0;font-family:'Cambria Math',Cambria,serif;font-size:14.5px;line-height:1.45;background:#fff}
+th,td{border:1.5px solid #2b3340;padding:3px 9px;text-align:center;white-space:nowrap;background:#fff}
+thead th{background:#eef2f7;font-weight:700;font-family:'Segoe UI',sans-serif;font-size:12.5px}
+td.T{color:var(--ok);font-weight:700}
+td.F{color:#b03030;font-weight:700}
+.worked{background:#f7fcf4;border:1.5px solid #cde3c2;border-left:4px solid var(--ok);border-radius:8px;padding:11px 15px;margin:12px 0}
+.worked h4{margin:0 0 6px;font-size:12px;color:#1e7a3c;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+.worked p{background:transparent}
+details{background:#f7f5ec;border:1.5px dashed #cfc6af;border-radius:8px;padding:10px 14px;margin:12px 0}
+details summary{cursor:pointer;font-weight:800;font-size:13.5px;color:var(--blue)}
+details[open] summary{margin-bottom:8px}
+details p{background:transparent;font-size:14px}
+.formula{font-family:'Cambria Math',Cambria,serif;font-size:13px;line-height:1.6;padding:6px 8px;border-radius:4px;
+  background:rgba(255,255,255,.62);margin-bottom:6px;border-left:3px solid #b8ab6a}
+.formula small{display:block;font-family:'Segoe UI',sans-serif;font-size:10.5px;color:#61531e;margin-top:2px}
+.kv{display:flex;justify-content:space-between;gap:8px;font-size:12px;padding:4px 0;border-bottom:1px dashed rgba(160,140,60,.35)}
+.kv:last-child{border-bottom:none}
+.kv span{color:#61531e;font-weight:600}
+.kv b{font-weight:800;text-align:right;color:#2c2206}
+.cheat-tag{display:inline-block;background:var(--red);color:#fff;font-size:9.5px;font-weight:800;
+  padding:2px 6px;border-radius:3px;text-transform:uppercase;letter-spacing:.05em;margin:6px 0 4px}
+.toggles{display:none;gap:8px;position:sticky;top:8px;z-index:60;margin-bottom:12px}
+.toggles button{flex:1;padding:8px;border-radius:4px;border:1px solid var(--sticky-edge);
+  background:linear-gradient(175deg,#fffbc7,var(--sticky));font-weight:800;font-size:12.5px;color:#332906;cursor:pointer}
+@media (max-width:1240px){
+  .wrap{grid-template-columns:220px minmax(0,1fr)}
+  .rail.right{display:none}
+  .toggles{display:flex}
+  .rail.right.open{display:block;position:fixed;top:0;right:0;bottom:0;width:300px;max-height:none;z-index:70;
+    background:var(--desk);padding:14px;box-shadow:-8px 0 24px rgba(40,30,10,.25);overflow:auto}
+}
+@media (max-width:900px){
+  .wrap{grid-template-columns:minmax(0,1fr)}
+  .rail.left{display:none;position:fixed;top:0;left:0;bottom:0;width:280px;max-height:none;z-index:70;
+    background:var(--desk);padding:14px;box-shadow:8px 0 24px rgba(40,30,10,.25);overflow:auto}
+  .rail.left.open{display:block}
+  .sheet{padding:20px 14px 26px 54px;font-size:14.5px;line-height:1.7;background-image:
+    linear-gradient(to right,transparent 0 38px,var(--margin-line) 38px 39.4px,transparent 39.4px),
+    repeating-linear-gradient(to bottom,transparent 0 33px,var(--rule) 33px 34px)}
+  .sheet::before,.sheet::after{left:12px;width:14px;height:14px}
+  .tblwrap,.big,.ind,.ans{margin-left:0}
+  .head h2{font-size:18px}.badge{width:42px;height:42px;font-size:18px}
+  table{font-size:12.5px} th,td{padding:2px 5px}
+}
+@media print{body{background:#fff;padding:0}.rail,.toggles{display:none!important}.wrap{display:block;max-width:none}
+  .sheet{box-shadow:none;border:none;border-radius:0;margin:0;page-break-after:always;max-width:none}}
+
+.contoh{background:#f4faf5;border:1px solid #cfe6d4;border-left:4px solid var(--ok);border-radius:4px;padding:10px 14px;margin:10px 0 14px;font-size:13.5px;line-height:1.7}
+.contoh .lbl2{display:inline-block;font-size:9.5px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:var(--ok);padding:2px 7px;border-radius:3px;margin-right:7px;vertical-align:1px}
+.contoh p{margin:3px 0}
+.bedah{background:#fff;border:1px solid #ddd6c0;border-radius:5px;box-shadow:0 2px 0 #e6e0cc;padding:16px 18px;margin:16px 0}
+.bedah .top{display:flex;align-items:center;gap:7px;margin-bottom:8px}
+.bedah .no{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 6px;border-radius:999px;background:var(--red);color:#fff;font-size:11px;font-weight:900}
+.bedah .ttl{font-size:11px;font-weight:900;letter-spacing:.09em;text-transform:uppercase;color:var(--red)}
+.bedah .soal{font-size:14px;font-weight:600;line-height:1.65;margin:0 0 10px;padding:10px 13px;background:#fbf9f2;border:1px dashed #ddd5bd;border-radius:4px}
+.bedah h5{margin:12px 0 4px;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue)}
+.bedah .baca{font-size:13px;line-height:1.7;margin:2px 0}
+.bedah .baca b{color:var(--red)}
+.bedah ol,.bedah ul{padding-left:22px;margin:5px 0}
+.bedah ol li,.bedah ul li{font-size:13.5px;line-height:1.75;margin-bottom:3px}
+.bedah .jawab{background:#eaf8ee;border-left:4px solid var(--ok);border-radius:4px;padding:9px 13px;font-size:13.5px;line-height:1.65;margin-top:10px}
+.bedah .jeb{font-size:12.5px;color:#7a3b12;background:#fff6e8;border-left:3px solid #d98b2b;padding:7px 11px;border-radius:3px;margin-top:9px;line-height:1.6}
+
+  table.txt{width:100%;table-layout:fixed}
+  table.txt th,table.txt td{white-space:normal;word-wrap:break-word}
+
+  table.op{font-size:12px}
+  table.op th,table.op td{padding:2px 4px}
+  table.op th small{display:block;font-weight:400;font-size:8.5px;color:#6b7280;letter-spacing:0}
+
+.tv{display:inline-block;font-family:monospace;font-weight:800;font-size:10.5px;padding:0 4px;border-radius:3px;vertical-align:1px;letter-spacing:0}
+.tv.t{background:#dff2e4;color:#1e7a3c;border:1px solid #b9dfc3}
+.tv.f{background:#fbe4e1;color:#a93226;border:1px solid #f0c2bb}
+
+.slide-crop{margin:18px 0 22px;padding:10px 10px 8px;background:#f8fafc;border:1px solid #cbd5e1;border-radius:8px}
+.slide-crop img{display:block;width:100%;height:auto;max-height:620px;object-fit:contain;background:#fff;border:1px solid #e2e8f0}
+.slide-crop figcaption{margin-top:7px;font:11px/1.45 ui-monospace,SFMono-Regular,Consolas,monospace;color:#64748b}
+.slide-crop figcaption b{color:#334155}
+
+
+pre.c-code{background:#1e1e1e;color:#d4d4d4;padding:12px 14px;border-radius:6px;font-family:'Consolas','Cascadia Mono','Courier New',monospace;font-size:13px;line-height:1.55;overflow-x:auto;margin:10px 0 12px;border:1px solid #333}
+pre.c-code .kwd{color:#569cd6;font-weight:700}
+pre.c-code .typ{color:#4ec9b0}
+pre.c-code .str{color:#ce9178}
+pre.c-code .num{color:#b5cea8}
+pre.c-code .com{color:#6a9955;font-style:italic}
+pre.c-code .pp{color:#c586c0}
+code.inline-c{background:rgba(30,30,30,.08);color:#a31515;padding:1px 5px;border-radius:3px;font-family:'Consolas',monospace;font-size:13px}
+.drill{border:1px solid #e2ddd2;border-radius:8px;padding:14px 16px;margin:14px 0;background:#fdfcf9}
+.drill .qno{display:inline-block;font-weight:800;color:#fff;background:#3a3a3a;border-radius:5px;padding:2px 8px;font-size:12px;margin-right:8px;vertical-align:2px}
+.drill .qtag{float:right;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8a8377;font-weight:700}
+.drill details{margin-top:10px;border-top:1px dashed #d8d2c6;padding-top:8px}
+.drill summary{cursor:pointer;font-weight:700;color:#1f5fa8;font-size:13px;outline:none}
+.drill summary::marker{color:#1f5fa8}
+.drill .ans{padding-top:8px;font-size:14px;line-height:1.65}
+.drill .ans b{color:#111}
+.toolbar{position:sticky;top:0;z-index:9;background:rgba(246,243,236,.95);backdrop-filter:blur(6px);padding:8px 0;margin-bottom:6px;border-bottom:1px solid #e2ddd2;display:flex;gap:8px;flex-wrap:wrap}
+.toolbar button{font:inherit;font-size:12px;font-weight:700;padding:7px 12px;border-radius:6px;border:1px solid #cfc9bc;background:#fff;color:#3a3a3a;cursor:pointer}
+.toolbar button:hover{background:#f1ede4}
+@media (max-width:900px){.toggles button{flex:1 1 0;min-width:0;font-size:11.5px;padding:7px 6px}}
+.head h2,.trap-card p,.bedah,.drill{overflow-wrap:anywhere}
+.wrap{grid-template-columns:minmax(0,900px);justify-content:center}
+@media (max-width:940px){.wrap{grid-template-columns:minmax(0,1fr);display:block}}
+
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <button type="button" onclick="document.querySelectorAll('details').forEach(d=>d.open=true)">Buka semua jawaban</button>
+  <button type="button" onclick="document.querySelectorAll('details').forEach(d=>d.open=false)">Tutup semua</button>
+  <button type="button" onclick="document.getElementById('cara').scrollIntoView({behavior:'smooth'})">Cara dry run</button>
+  <a href="materi.html" style="text-decoration:none"><button type="button">← Balik ke Materi</button></a>
+</div>
+
+<div class="wrap">
+<main>
+
+<section class="sheet" id="cara">
+  <div class="head">
+    <div class="badge">24</div>
+    <div>
+      <h2>Drill UTS AlProg — 24 Soal Tipe Ujian</h2>
+      <div class="sub">Semua soal di bawah ini bentuknya sama dengan yang keluar di kuis &amp; UTS BINUS: tracing, fall-through, bitwise, pointer offset. Kerjain di kertas dulu, baru buka jawaban.</div>
+    </div>
+  </div>
+
+  <div class="trap-card">
+    <b>Aturan main latihan ini:</b>
+    <p>1. <b>Jangan buka jawaban sebelum nulis.</b> Kalau lu cuma baca jawaban, otak lu mengira paham. Kalau lu nulis tracing dan salah, baru itu beneran belajar.</p>
+    <p>2. <b>Kertas buram wajib.</b> Untuk soal tracing, siapkan tabel 3 kolom: <code class="inline-c">Langkah | Nilai Variabel | Output</code>. Soal tracing 4 baris biasanya butuh 6-8 baris tabel.</p>
+    <p>3. <b>Kalau salah, jangan lanjut.</b> Balik ke modul terkait di halaman materi, baru lanjut soal berikutnya.</p>
+  </div>
+
+  <div class="sec">Cara Kerja Tabel Tracing (Dry Run)</div>
+  <p>Contoh soal: berapa output dari kode ini?</p>
+  <pre class="c-code">
+<span class="typ">int</span> i, sum = <span class="num">0</span>;
+<span class="kwd">for</span> (i = <span class="num">1</span>; i &lt;= <span class="num">4</span>; i++) {
+    <span class="kwd">if</span> (i % <span class="num">2</span> == <span class="num">0</span>) <span class="kwd">continue</span>;
+    sum += i;
+}
+<span class="kwd">printf</span>(<span class="str">"%d"</span>, sum);
+  </pre>
+  <div class="tblwrap">
+    <table>
+      <thead><tr><th>Iterasi</th><th>i</th><th>i % 2 == 0 ?</th><th>Aksi</th><th>sum</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>1</td><td>Tidak</td><td>sum = 0 + 1</td><td>1</td></tr>
+        <tr><td>2</td><td>2</td><td>Ya</td><td>continue (lompat)</td><td>1</td></tr>
+        <tr><td>3</td><td>3</td><td>Tidak</td><td>sum = 1 + 3</td><td>4</td></tr>
+        <tr><td>4</td><td>4</td><td>Ya</td><td>continue (lompat)</td><td>4</td></tr>
+        <tr><td>selesai</td><td>5</td><td>loop berhenti (5 &lt;= 4 salah)</td><td>printf</td><td>4</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Jawaban: <b>4</b>. Perhatikan baris terakhir — nilai <code class="inline-c">i</code> setelah loop berhenti adalah 5, bukan 4. Ini jebakan yang paling sering kena.</p>
+</section>
+
+<section class="sheet">
+  <div class="head">
+    <div class="badge">M1</div>
+    <div>
+      <h2>Modul 1 · Algoritma, Flowchart &amp; Pseudo-code</h2>
+      <div class="sub">3 soal</div>
+    </div>
+  </div>
+
+  <div class="drill">
+    <span class="qtag">Pseudo-code</span>
+    <span class="qno">1</span><b>Rata-rata dengan sentinel</b>
+    <p>Buat pseudo-code gaya BINUS: baca bilangan bulat satu per satu sampai user memasukkan <code class="inline-c">-1</code> (sentinel, tidak ikut dihitung), lalu tampilkan rata-ratanya.</p>
+    <details><summary>Cek jawaban &amp; rubrik</summary>
+      <div class="ans">
+<pre class="c-code">
+STORE 0 TO total, count
+INPUT num
+DOWHILE num &lt;&gt; -1
+    COMPUTE total = total + num
+    COMPUTE count = count + 1
+    INPUT num
+ENDDO
+IF count &gt; 0 THEN
+    COMPUTE avg = total / count
+    PRINT "Rata-rata =", avg
+ELSE
+    PRINT "Tidak ada data"
+ENDIF
+</pre>
+        <p><b>Poin penuh kalau ada:</b> (a) inisialisasi <code class="inline-c">total</code> dan <code class="inline-c">count</code> sebelum loop, (b) input kedua <b>di dalam</b> loop (kalau lupa, loop tak berujung), (c) penjaga <code class="inline-c">count &gt; 0</code> sebelum membagi — kalau tidak, pembagian dengan nol. Poin (c) yang paling sering dilupakan.</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="drill">
+    <span class="qtag">Flowchart</span>
+    <span class="qno">2</span><b>Simbol dan fungsinya</b>
+    <p>Sebutkan simbol flowchart untuk: (a) mulai/selesai, (b) proses/kalkulasi, (c) input/output, (d) pengambilan keputusan, dan (e) penghubung antar-halaman.</p>
+    <details><summary>Cek jawaban</summary>
+      <div class="ans">
+        <p>(a) <b>Terminator</b> — oval/kapsul. (b) <b>Process</b> — persegi panjang. (c) <b>Input/Output</b> — jajar genjang. (d) <b>Decision</b> — belah ketupat, punya dua cabang keluar (Ya/Tidak). (e) <b>Connector</b> — lingkaran kecil berisi huruf/huruf angka.</p>
+        <p>Yang sering ketuker: decision <b>selalu</b> punya minimal 2 panah keluar. Kalau gambarnya belah ketupat tapi cuma 1 panah keluar, itu salah gambar dan biasanya dipotong nilainya.</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="drill">
+    <span class="qtag">Teori</span>
+    <span class="qno">3</span><b>Structure theorem</b>
+    <p>Sebutkan 3 struktur kendali dasar yang cukup untuk membangun program apa pun, dan beri 1 contoh sintaks C untuk masing-masing.</p>
+    <details><summary>Cek jawaban</summary>
+      <div class="ans">
+        <p>1. <b>Sequence</b> — instruksi berurutan: <code class="inline-c">a = 5; b = 7;</code></p>
+        <p>2. <b>Selection</b> — percabangan: <code class="inline-c">if (a &gt; b) ... else ...</code></p>
+        <p>3. <b>Repetition</b> — pengulangan: <code class="inline-c">while (a &lt; 10) { ... }</code></p>
+        <p>Kata kunci yang dicari dosen: <b>"cukup"</b>. Artinya tidak ada struktur keempat yang dibutuhkan — <code class="inline-c">switch</code>, <code class="inline-c">for</code>, <code class="inline-c">do-while</code> semuanya bisa diturunkan dari tiga ini.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section class="sheet">
+  <div class="head">
+    <div class="badge">M2</div>
+    <div>
+      <h2>Modul 2 · Sintaks C &amp; Formatted I/O</h2>
+      <div class="sub">4 soal</div>
+    </div>
+  </div>
+
+  <div class="drill">
+    <span class="qtag">Tracing</span>
+    <span class="qno">4</span><b>Lebar field printf</b>
+    <p>Output dari <code class="inline-c">printf("%d|%5d|%-5d|%05d", 42, 42, 42, 42);</code></p>
+    <details><summary>Cek jawaban</summary>
+      <div class="ans">
+<pre class="c-code">
+42|   42|42   |00042
+</pre>
+        <p><code class="inline-c">%d</code> apa adanya. <code class="inline-c">%5d</code> rata kanan lebar 5 → 3 spasi + 42. <code class="inline-c">%-5d</code> rata kiri → 42 + 3 spasi. <code class="inline-c">%05d</code> lebar 5 diisi nol → 00042.</p>
+        <p>Hitung spasi persis. Kalau lu jawab " 42" (2 spasi) itu salah — <code class="inline-c">%5d</code> berarti total 5 karakter, jadi 3 spasi.</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="drill">
+    <span class="qtag">Jebakan</span>
+    <span class="qno">5</span><b>%.2f pada pembagian bulat</b>
+    <p>Output dari <code class="inline-c">printf("%.2f", 7 / 2);</code></p>
+    <details><summary>Cek jawaban</summary>
+      <div class="ans">
+        <p><b>3.00</b>, bukan 3.50.</p>
+        <p><code class="inline-c">7 / 2</code> dievaluasi dulu sebagai <b>pembagian integer</b> → 3 (sisa 1 dibuang). Baru setelah itu hasil 3 diubah ke <code class="inline-c">double</code> untuk <code class="inline-c">%f</code>. Untuk dapat 3.50: <code class="inline-c">7.0 / 2</code> atau <code class="inline-c">(double)7 / 2</code>.</p>
+        <p>Ini soal paling sering keluar. Hafalin: <b>tipe hasil operasi aritmatika ikut operand terbesar</b>, dan int/int selalu int.</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="drill">
+    <span class="qtag">Tracing</span>
+    <span class="qno">6</span><b>%c vs %d pada char</b>
+    <p>Kalau <code class="inline-c">char c = 'A';</code> lalu <code class="inline-c">printf("%c %d", c, c);</code> — apa outputnya? Dan berapa nilai <code class="inline-c">c + 1</code>?</p>
+    <details><summary>Cek jawaban</summary>
+      <div class="ans">
+        <p>Output: <b>A 65</b>. Nilai <code class="inline-c">c + 1</code> adalah <b>66</b> (int), dan <code class="inline-c">(char)(c + 1)</code> adalah <b>'B'</b>.</p>
+        <p>Ingat: <code class="inline-c">char</code> di C sebenarnya bilangan bulat 1 byte. <code class="inline-c">'A'</code> = 65, <code class="inline-c">'a'</code> = 97, <code class="inline-c">'0'</code> = 48. Jadi <code class="inline-c">'a' - 'A'</code> = 32, dan trik konversi huruf besar-kecil pakai selisih 32 itu sah.</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="drill">
+    <span class="qtag">Bug</span>
+    <span class="qno">7</span><b>scanf menelan newline</b>
+    <p>User mengetik <code class="inline-c">25</code> lalu Enter, lalu <code class="inline-c">B</code>. Kode berikut kenapa tidak pernah menunggu input kedua?</p>
+<pre class="c-code">
+<span class="kwd">scanf</span>(<span class="str">"%d"</span>, &amp;umur);
+<span class="kwd">scanf</span>(<span class="str">"%c"</span>, &amp;gender);
+</pre>
+    <details><summary>Cek jawaban</summary>
+      <div class="ans">
+        <p>Karena <code class="inline-c">'\n'</code> dari Enter pertama masih tertinggal di buffer. <code class="inline-c">%c</code> tidak melewati whitespace, jadi langsung mengambil <code class="inline-c">'\n'</code> itu sebagai nilai <code class="inline-c">gender</code>.</p>
+        <p><b>Fix:</b> <code class="inline-c">scanf(" %c", &amp;gender);</code> — spasi di depan format artinya "lewati semua whitespace dulu". Alternatif: panggil <code class="inline-c">getchar();</code> sekali sebelum <code class="inline-c">%c</code>.</p>
+        <p>Catatan: <code class="inline-c">%d</code>, <code class="inline-c">%f</code>, <code class="inline-c">%s</code> <b>otomatis</b> melewati whitespace di depan. Hanya <code class="inline-c">%c</code> (dan <code class="inline-c">%[</code>) yang tidak.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section class="sheet">
+  <div class="head">
+    <div class="badge">M3</div>
+    <div>
+      <h2>Modul 3 · Operator &amp; Precedence</h2>
+      <div class="sub">4 soal</div>
+    </div>
+  </div>
+
+  <div class="drill">
+    <span class="qtag">Tracing</span>
+    <span class="qno">8</span><b>Prefix vs postfix</b>
+    <p>Berapa nilai <code class="inline-c">a</code>, <code class="inline-c">b</code>, dan <code class="inline-c">x</code>?</p>
+<pre class="c-code">
+<span class="typ">int</span> x = <span class="num">5</span>;
+<span class="typ">int</span> a = x++;
+<span class="typ">int</span> b = ++x;
+</pre>
+    <details><summary>Cek jawaban</summary>
+      <div class="ans">
+        <p><b>a = 5, b = 7, x = 7.</b></p>
+        <p>Baris 2: <code class="inline-c">x++</code> pakai nilai lama (5) untuk <code class="inline-c">a</code>, baru <code class="inline-c">x</code> jadi 6. Baris 3: <code class="inline-c">++x</code> naikkan dulu <code class="inline-c">x</code> jadi 7, baru nilainya dipakai untuk <code class="inline-c">b</code>.</p>
+        <p>Kalau soal menulis <code class="inline-c">x++ + ++x</code> dalam satu ekspresi, jangan diberi satu jawaban pasti — itu <b>undefined behavior</b>. Jawaban yang benar secara akademik: urutan evaluasi tidak dijamin compiler, jadi hasilnya tidak bisa diprediksi. Dosen yang teliti akan menghargai jawaban ini.</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="drill">
+    <span class="qtag">Tracing</span>
+    <span class="qno">9</span><b>Bagi dan modulo</b>
+    <p>Kalau <code class="inline-c">a = 10</code> dan <code class="inline-c">b = 3</code>, apa hasil <code class="inline-c">a / b</code> dan <code class="inline-c">a % b</code>? Lalu kalau <code class="inline-c">a = -10</code>, berapa <code class="inline-c">a % b</code>?</p>
+    <details><summary>Cek jawaban</summary>
+      <div class="ans">
+        <p><b>3</b> dan <b>1</b>. Untuk <code class="inline-c">-10 % 3</code> hasilnya <b>-1</b>.</p>
+        <p>Aturan C (sejak C99): hasil modulo mengikuti tanda <b>pembilang</b> (yang dibagi), bukan penyebut. Jadi <code class="inline-c">-10 % 3 = -1</code>, bukan 2.</p>
+        <p>Konsekuensi praktis: cek bilangan ganjil dengan <code class="inline-c">n % 2 == 1</code> akan <b>gagal untuk bilangan negatif</b>. Yang aman: <code class="inline-c">n % 2 != 0</code>.</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="drill">
+    <span class="qtag">Bitwise</span>
+    <span class="qno">10</span><b>AND, OR, XOR</b>
+    <p>Hitung <code class="inline-c">12 &amp; 10</code>, <code class="inline-c">12 | 10</code>, dan <code class="inline-c">12 ^ 10</code>.</p>
+    <details><summary>Cek jawaban</summary>
+      <div class="ans">
+        <p>12 = <code class="inline-c">1100</code>, 10 = <code class="inline-c">1010</code>.</p>
+        <p><code class="inline-c">12 &amp; 10</code> = <code class="inline-c">1000</code> = <b>8</b><br>
+           <code class="inline-c">12 | 10</code> = <code class="inline-c">1110</code> = <b>14</b><br>
+           <code class="inline-c">12 ^ 10</code> = <code class="inline-c">0110</code> = <b>6</b></p>
+        <p>Selalu tulis biner 4 bit di kertas buram, jangan hitung di kepala. Tips cepat: <code class="inline-c">x ^ x = 0</code> untuk semua x.</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="drill">
+    <span class="qtag">Short-circuit</span>
+    <span class="qno">11</span><b>&& memangkas evaluasi</b>
+    <p>Berapa nilai <code class="inline-c">i</code> setelah kode ini?</p>
+<pre class="c-code">
+<span class="typ">int</span> i = <span class="num">0</span>;
+<span class="kwd">if</span> (i++ &amp;&amp; i++) { }
+<span class="kwd">printf</span>(<span class="str">"%d"</span>, i);
+</pre>
+    <details><summary>Cek jawaban</summary>
+      <div class="ans">
+        <p><b>1</b>.</p>
+        <p>Operand kiri <code class="inline-c">i++</code> dievaluasi: nilai dipakai = 0 (false), <code class="inline-c">i</code> jadi 1. Karena hasil <code class="inline-c">&amp;&amp;</code> sudah pasti false, operand kanan <b>tidak dieksekusi</b> — jadi <code class="inline-c">i++</code> kedua tidak jalan.</p>
+        <p>Kalau operatornya <code class="inline-c">|</code> (bitwise OR, tidak short-circuit), dua-duanya dievaluasi dan <code class="inline-c">i</code> akan jadi 2. Ini perbedaan yang sering ditanyakan.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section class="sheet">
+  <div class="head">
+    <div class="badge">M4</div>
+    <div>
+      <h2>Modul 4 · Selection</h2>
+      <div class="sub">3 soal</div>
+    </div>
+  </div>
+
+  <div class="drill">
+    <span class="qtag">Tracing</span>
+    <span class="qno">12</span><b>Switch tanpa break</b>
+    <p>Kalau <code class="inline-c">x = 2</code>, apa yang tercetak?</p>
+<pre class="c-code">
+<span class="kwd">switch</span> (x) {
+  <span class="kwd">case</span> <span class="num">1</span>: <span class="kwd">printf</span>(<span class="str">"A"</span>);
+  <span class="kwd">case</span> <span class="num">2</span>: <span class="kwd">printf</span>(<span class="str">"B"</span>);
+  <span class="kwd">case</span> <span class="num">3</span>: <span class="kwd">printf</span>(<span class="str">"C"</span>); <span class="kwd">break</span>;
+  <span class="kwd">case</span> <span class="num">4</span>: <span class="kwd">printf</span>(<span class="str">"D"</span>);
+  <span class="kwd">default</span>: <span class="kwd">printf</span>(<span class="str">"E"</span>);
+}
+</pre>
+    <details><summary>Cek jawaban</summary>
+      <div class="ans">
+        <p><b>BC</b>.</p>
+        <p>Lompat ke <code class="inline-c">case 2</code>, cetak B. Tidak ada <code class="inline-c">break</code> → jatuh ke <code class="inline-c">case 3</code>, cetak C. Ketemu <code class="inline-c">break</code> → keluar. <code class="inline-c">case 4</code> dan <code class="inline-c">default</code> tidak dijalankan.</p>
+        <p>Kenapa tidak cetak A? Karena <code class="inline-c">switch</code> <b>melompat langsung</b> ke label yang cocok, bukan mengecek dari atas satu per satu. Fall-through hanya terjadi ke bawah, tidak pernah ke atas.</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="drill">
+    <span class="qtag">Teori</span>
+    <span class="qno">13</span><b>Dangling else</b>
+    <p>Pada <code class="inline-c">if (a &gt; 0) if (b &gt; 0) printf("X"); else printf("Y");</code> — <code class="inline-c">else</code> itu milik <code class="inline-c">if</code> yang mana? Apa outputnya kalau <code class="inline-c">a = -1</code> dan <code class="inline-c">b = 5</code>?</p>
+    <details><summary>Cek jawaban</summary>
+      <div class="ans">
+        <p><code class="inline-c">else</code> milik <b><code class="inline-c">if (b &gt; 0)</code></b> — <code class="inline-c">if</code> terdekat yang belum punya pasangan.</p>
+        <p>Kalau <code class="inline-c">a = -1</code>: syarat pertama false, jadi seluruh blok <code class="inline-c">if(b)</code> dilewati — <b>tidak ada output sama sekali</b>. <code class="inline-c">else</code> tidak ikut dieksekusi karena dia ada di dalam blok yang dilewati.</p>
+        <p>Untuk membuat <code class="inline-c">else</code> jadi milik <code class="inline-c">if</code> luar, wajib pakai kurung kurawal: <code class="inline-c">if (a &gt; 0) { if (b &gt; 0) printf("X"); } else printf("Y");</code></p>
+      </div>
+    </details>
+  </div>
+
+  <div class="drill">
+    <span class="qtag">Jebakan</span>
+    <span class="qno">14</span><b>if dengan tanda sama dengan</b>
+    <p>Apa output dari <code class="inline-c">int x = 0; if (x = 5) printf("MASUK"); else printf("LEWAT");</code></p>
+    <details><summary>Cek jawaban</summary>
+      <div class="ans">
+        <p><b>MASUK</b>.</p>
+        <p><code class="inline-c">x = 5</code> adalah <b>penugasan</b>, bukan perbandingan. Ekspresinya bernilai 5, dan di C semua nilai non-zero dianggap true. Jadi blok if selalu jalan dan <code class="inline-c">x</code> sekarang berisi 5.</p>
+        <p>Cara nangkep bug ini: tulis konstanta di kiri — <code class="inline-c">if (5 == x)</code>. Kalau typo jadi <code class="inline-c">if (5 = x)</code>, compiler langsung error karena tidak bisa menugaskan ke konstanta.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section class="sheet">
+  <div class="head">
+    <div class="badge">M5</div>
+    <div>
+      <h2>Modul 5 · Repetition</h2>
+      <div class="sub">3 soal</div>
+    </div>
+  </div>
+
+  <div class="drill">
+    <span class="qtag">Jebakan</span>
+    <span class="qno">15</span><b>Titik koma setelah for</b>
+    <p>Apa output dari <code class="inline-c">int i; for (i = 0; i &lt; 5; i++); printf("%d", i);</code></p>
+    <details><summary>Cek jawaban</summary>
+      <div class="ans">
+        <p><b>5</b>, dan cuma tercetak sekali.</p>
+        <p>Titik koma di ujung header jadi <b>bodi loop kosong</b> — loop tetap berputar 5 kali tanpa melakukan apa pun, sampai <code class="inline-c">i = 5</code> dan kondisi gagal. Baru setelah itu <code class="inline-c">printf</code> jalan sekali.</p>
+        <p>Kalau soalnya <code class="inline-c">printf</code> tanpa titik koma tambahan, outputnya <code class="inline-c">01234</code>. Bedanya cuma satu karakter — makanya soal ini jadi favorit.</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="drill">
+    <span class="qtag">Tracing</span>
+    <span class="qno">16</span><b>Nested loop berperingkat</b>
+    <p>Berapa banyak karakter <code class="inline-c">*</code> yang tercetak?</p>
+<pre class="c-code">
+<span class="kwd">for</span> (i = <span class="num">1</span>; i &lt;= <span class="num">3</span>; i++)
+    <span class="kwd">for</span> (j = <span class="num">1</span>; j &lt;= i; j++)
+        <span class="kwd">printf</span>(<span class="str">"*"</span>);
+</pre>
+    <details><summary>Cek jawaban</summary>
+      <div class="ans">
+        <p><b>6</b> bintang (i=1 → 1, i=2 → 2, i=3 → 3; total 1+2+3 = 6).</p>
+        <p>Kalau ada <code class="inline-c">printf("\n")</code> di akhir loop dalam, hasilnya segitiga:</p>
+<pre class="c-code">
+*
+**
+***
+</pre>
+        <p>Rumus cepat: total iterasi nested loop = penjumlahan batas dalam untuk setiap nilai luar. Jangan dikalikan (3×3=9 itu salah).</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="drill">
+    <span class="qtag">Tracing</span>
+    <span class="qno">17</span><b>do-while jalan minimal sekali</b>
+    <p>Apa output dari <code class="inline-c">int i = 10; do { printf("%d ", i); i++; } while (i &lt; 5);</code></p>
+    <details><summary>Cek jawaban</summary>
+      <div class="ans">
+        <p><b>10 </b>— sekali saja.</p>
+        <p>Bodi <b>selalu</b> dieksekusi dulu, baru kondisi dicek. Saat cek, <code class="inline-c">i</code> sudah 11 dan <code class="inline-c">11 &lt; 5</code> false → berhenti.</p>
+        <p>Kalau ditulis <code class="inline-c">while (i &lt; 5)</code> biasa, outputnya kosong sama sekali. Inilah satu-satunya perbedaan perilaku yang diuji dari do-while.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section class="sheet">
+  <div class="head">
+    <div class="badge">M6</div>
+    <div>
+      <h2>Modul 6 · Pointer &amp; Array</h2>
+      <div class="sub">4 soal</div>
+    </div>
+  </div>
+
+  <div class="drill">
+    <span class="qtag">Pointer</span>
+    <span class="qno">18</span><b>Aritmatika pointer</b>
+    <p>Apa output dari <code class="inline-c">int a[] = {10,20,30}; int *p = a; printf("%d %d", *(p + 2), *p + 2);</code></p>
+    <details><summary>Cek jawaban</summary>
+      <div class="ans">
+        <p><b>30 12</b>.</p>
+        <p><code class="inline-c">*(p + 2)</code>: geser pointer 2 elemen dulu, baru dereference → <code class="inline-c">a[2]</code> = 30.<br>
+           <code class="inline-c">*p + 2</code>: dereference dulu (<code class="inline-c">a[0]</code> = 10), baru ditambah 2 → 12.</p>
+        <p>Kuncinya urutan operator: <code class="inline-c">*</code> dan <code class="inline-c">+</code> — kurung menentukan mana yang duluan. Tanpa kurung, <code class="inline-c">*</code> lebih tinggi dari <code class="inline-c">+</code>, jadi <code class="inline-c">*p+2</code> selalu <code class="inline-c">(*p)+2</code>.</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="drill">
+    <span class="qtag">Array</span>
+    <span class="qno">19</span><b>Inisialisasi sebagian</b>
+    <p>Isi <code class="inline-c">a[0]</code> sampai <code class="inline-c">a[4]</code> untuk <code class="inline-c">int a[5] = {1, 2};</code> — dan apa isi <code class="inline-c">a[5]</code>?</p>
+    <details><summary>Cek jawaban</summary>
+      <div class="ans">
+        <p><code class="inline-c">1, 2, 0, 0, 0</code>. Elemen yang tidak diinisialisasi <b>diisi nol</b>.</p>
+        <p><code class="inline-c">a[5]</code> <b>di luar batas</b> — undefined behavior. Bisa berisi sampah memori, bisa crash, bisa kebetulan 0. Jawaban "0" salah, karena itu bukan jaminan bahasa.</p>
+        <p>Catatan: array lokal tanpa inisialisasi sama sekali (<code class="inline-c">int a[5];</code>) berisi <b>sampah</b>, bukan nol. Nol hanya berlaku kalau ada inisialisasi sebagian atau <code class="inline-c">static</code>.</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="drill">
+    <span class="qtag">String</span>
+    <span class="qno">20</span><b>strlen vs sizeof</b>
+    <p>Untuk <code class="inline-c">char s[] = "BiNus";</code> — berapa <code class="inline-c">strlen(s)</code> dan <code class="inline-c">sizeof(s)</code>?</p>
+    <details><summary>Cek jawaban</summary>
+      <div class="ans">
+        <p><code class="inline-c">strlen(s) = 5</code>, <code class="inline-c">sizeof(s) = 6</code>.</p>
+        <p><code class="inline-c">sizeof</code> menghitung total byte array termasuk <code class="inline-c">'\0'</code>. <code class="inline-c">strlen</code> menghitung karakter sampai ketemu <code class="inline-c">'\0'</code>, jadi tidak termasuk.</p>
+        <p>Konsekuensi: kalau mau gabung dua string, ukuran tujuan minimal <code class="inline-c">strlen(a) + strlen(b) + 1</code>. Lupa <code class="inline-c">+1</code> = buffer overflow.</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="drill">
+    <span class="qtag">2D Array</span>
+    <span class="qno">21</span><b>Row-major offset</b>
+    <p>Untuk <code class="inline-c">int m[3][4];</code> — berapa selisih alamat antara <code class="inline-c">&amp;m[1][2]</code> dan <code class="inline-c">&amp;m[0][0]</code>?</p>
+    <details><summary>Cek jawaban</summary>
+      <div class="ans">
+        <p><b>6 elemen</b> (kalau dihitung byte: 6 × 4 = 24 byte untuk <code class="inline-c">int</code> 4 byte).</p>
+        <p>Rumus: offset = <span class="m">i * jumlah_kolom + j</span> = 1×4 + 2 = 6. C menyimpan array 2D secara <b>row-major</b>: baris 0 dulu lengkap, baru baris 1.</p>
+        <p>Kalau di soal ada <code class="inline-c">int *p = &amp;m[0][0];</code> maka <code class="inline-c">p[6]</code> adalah elemen yang sama dengan <code class="inline-c">m[1][2]</code>. Inilah kenapa parameter fungsi 2D wajib menyebut jumlah kolom: <code class="inline-c">void f(int a[][4])</code> — tanpa 4, compiler tidak tahu cara menghitung offset.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section class="sheet">
+  <div class="head">
+    <div class="badge">M7</div>
+    <div>
+      <h2>Modul 7 · Function &amp; Recursion</h2>
+      <div class="sub">3 soal</div>
+    </div>
+  </div>
+
+  <div class="drill">
+    <span class="qtag">Rekursi</span>
+    <span class="qno">22</span><b>Trace faktorial</b>
+    <p>Kalau <code class="inline-c">int f(int n) { if (n &lt;= 1) return 1; return n * f(n - 1); }</code> — berapa <code class="inline-c">f(4)</code>, dan berapa kali fungsi dipanggil total?</p>
+    <details><summary>Cek jawaban</summary>
+      <div class="ans">
+        <p><code class="inline-c">f(4) = 24</code>. Total pemanggilan: <b>4 kali</b> (f(4), f(3), f(2), f(1)) — f(1) langsung mengembalikan 1 tanpa memanggil lagi.</p>
+        <p>Jejak: 4 × f(3) = 4 × (3 × f(2)) = 4 × 3 × (2 × f(1)) = 4 × 3 × 2 × 1 = 24.</p>
+        <p>Untuk soal "berapa kedalaman stack", jawabannya 4 level. Untuk n besar, rekursif bisa stack overflow — versi iteratif pakai satu variabel akumulator lebih hemat memori.</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="drill">
+    <span class="qtag">Passing</span>
+    <span class="qno">23</span><b>Pass by value tidak mengubah asli</b>
+    <p>Setelah <code class="inline-c">void ubah(int x) { x = 99; }</code> dipanggil dengan <code class="inline-c">int a = 5; ubah(a);</code> — berapa nilai <code class="inline-c">a</code>?</p>
+    <details><summary>Cek jawaban</summary>
+      <div class="ans">
+        <p>Tetap <b>5</b>.</p>
+        <p>C menyalin nilai <code class="inline-c">a</code> ke parameter <code class="inline-c">x</code>. <code class="inline-c">x</code> adalah variabel berbeda di memori lain — mengubahnya tidak menyentuh <code class="inline-c">a</code>.</p>
+        <p>Supaya berubah, kirim alamat: <code class="inline-c">void ubah(int *x) { *x = 99; }</code> lalu panggil <code class="inline-c">ubah(&amp;a);</code>.</p>
+        <p>Pengecualian penting: <b>array selalu lewat alamat</b>. Kalau parameternya <code class="inline-c">void ubah(int x[])</code>, perubahan <code class="inline-c">x[0]</code> <b>ikut mengubah</b> array asli.</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="drill">
+    <span class="qtag">Teori</span>
+    <span class="qno">24</span><b>Rekursi tanpa base case</b>
+    <p>Apa yang terjadi kalau fungsi rekursif lupa menulis base case? Dan sebutkan 2 syarat wajib rekursi.</p>
+    <details><summary>Cek jawaban</summary>
+      <div class="ans">
+        <p>Fungsi memanggil dirinya terus-menerus sampai <b>stack overflow</b> — program crash (segmentation fault), bukan menghasilkan output salah.</p>
+        <p>Dua syarat wajib: (1) <b>base case</b> — kondisi yang berhenti tanpa rekursi, (2) <b>reduction step</b> — argumen harus bergerak menuju base case. Kalau base case ada tapi argumen tidak mengecil (<code class="inline-c">f(n)</code> memanggil <code class="inline-c">f(n)</code>), hasilnya sama: infinite recursion.</p>
+        <p>Contoh base case faktorial: <code class="inline-c">if (n &lt;= 1) return 1;</code> — tanpa baris ini, <code class="inline-c">n</code> terus turun ke negatif dan tidak pernah berhenti.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+</main>
+</div>
+
+</body>
+</html>

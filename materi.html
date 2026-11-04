@@ -1,0 +1,832 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UTS AlProg (COMP6421031) — Buku Materi &amp; Cheat Sheet</title>
+<style>
+
+:root{
+  --ink:#1c2430; --ink-soft:#4a5568; --red:#c0392b; --blue:#1f5fa8;
+  --paper:#fdfaf2; --rule:rgba(80,120,175,.14); --margin-line:rgba(215,65,65,.55);
+  --edge:#cac3ad; --desk:#e5e1d4; --ok:#1e7a3c;
+  --sticky:#fff9b0; --sticky-edge:#e9de89;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--desk);
+  background-image:radial-gradient(circle at 20% 0%,#f0ece0 0%,#d8d3c2 70%);
+  color:var(--ink);
+  font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  padding:22px 14px 90px;
+}
+.wrap{max-width:1520px;margin:0 auto;display:grid;
+  grid-template-columns:248px minmax(0,920px) 300px;gap:22px;align-items:start;justify-content:center}
+.rail{position:sticky;top:14px;max-height:calc(100vh - 28px);overflow-y:auto;overflow-x:hidden;padding:8px 4px 30px}
+.rail::-webkit-scrollbar{width:5px}
+.rail::-webkit-scrollbar-thumb{background:#c9c2ad;border-radius:3px}
+.panel{position:relative;background:linear-gradient(175deg,#fffbc7 0%,var(--sticky) 40%,#fef39c 100%);
+  border:1px solid var(--sticky-edge);border-radius:4px;
+  box-shadow:0 2px 4px rgba(60,50,20,.08),0 8px 18px rgba(60,50,20,.14);
+  padding:16px 15px;margin-bottom:16px}
+.panel h4{margin:0 0 10px;font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;
+  color:#61531e;border-bottom:1.5px dashed rgba(150,130,50,.3);padding-bottom:5px}
+.total{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:6px}
+.total b{font-size:20px;font-weight:800;color:#2c2206}
+.total span{font-size:11px;color:#61531e;font-weight:700}
+.pbar{height:6px;border-radius:999px;background:#e5dc9b;overflow:hidden;margin-bottom:10px}
+.pbar i{display:block;height:100%;background:var(--red);border-radius:999px}
+.road{list-style:none;margin:10px 0 0;padding:0;position:relative}
+.road::before{content:"";position:absolute;left:9px;top:8px;bottom:8px;width:1.5px;background:#d8cc8a}
+.road li{position:relative;padding:0 0 0 26px;margin:0 0 3px}
+.road a{display:block;text-decoration:none;color:#2b2308;font-size:12.5px;font-weight:700;line-height:1.35;
+  padding:5px 7px;border-radius:5px}
+.road a:hover{background:rgba(255,255,255,.6)}
+.road a small{display:block;font-size:10.5px;color:#61531e;font-weight:500;margin-top:1px}
+.road .dot{position:absolute;left:4px;top:10px;width:11px;height:11px;border-radius:50%;background:#fff;border:2px solid #b8ab6a}
+.road li.now .dot{border-color:var(--red);background:var(--red);box-shadow:0 0 0 3px rgba(192,57,43,.2)}
+.road li.now a{background:rgba(255,255,255,.8);color:var(--red)}
+main{min-width:0}
+.sheet{position:relative;background:var(--paper);
+  background-image:
+    linear-gradient(to right,transparent 0 84px,var(--margin-line) 84px 85.5px,transparent 85.5px),
+    repeating-linear-gradient(to bottom,transparent 0 33px,var(--rule) 33px 34px);
+  background-position:0 0,0 38px;border-radius:4px;border:1px solid #dcd5bf;
+  box-shadow:0 2px 0 #cfc8b4,0 10px 24px rgba(60,50,30,.15);
+  padding:32px 42px 48px 110px;font-size:15.5px;line-height:1.75;margin:0 0 26px;scroll-margin-top:14px}
+.sheet::before,.sheet::after{content:"";position:absolute;left:28px;width:22px;height:22px;border-radius:50%;
+  background:var(--desk);box-shadow:inset 0 2px 4px rgba(0,0,0,.24),0 0 0 1px #d3ccb8}
+.sheet::before{top:68px}.sheet::after{bottom:68px}
+.head{display:flex;align-items:flex-start;gap:15px;margin-bottom:10px}
+.badge{flex:0 0 auto;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:#fff;
+  border:2.5px solid var(--red);color:var(--red);font-weight:800;font-size:22px;box-shadow:2px 2px 0 rgba(192,57,43,.18)}
+.head h2{font-size:22px;font-weight:800;letter-spacing:-.01em;margin:0}
+.head .sub{font-size:13px;color:var(--ink-soft);font-weight:500;margin-top:3px}
+.sec{font-size:11.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);
+  margin:20px 0 6px;display:flex;align-items:center;gap:8px}
+.sec::after{content:"";flex:1;height:1px;background:#d8e2ee}
+p{margin:6px 0;background:rgba(253,250,242,.86)}
+.m{font-family:'Cambria Math',Cambria,Georgia,serif;font-style:italic}
+.m b{font-style:normal}
+.analogi{background:#fefbf2;border:1.5px dashed #c49742;border-left:5px solid #d48b14;border-radius:8px;padding:12px 15px;margin:12px 0}
+.analogi h4{margin:0 0 5px;color:#8f5600;font-size:14.5px;font-weight:800}
+.analogi p{margin:4px 0;font-size:13.5px;line-height:1.7;background:transparent}
+.analogi .kesimpulan{background:#fff;border:1px solid #ebd8b0;border-radius:6px;padding:8px 11px;margin-top:8px;
+  font-size:13px;color:#613e05;font-weight:700;line-height:1.6}
+.trap-card{background:#fff5f3;border:1.5px solid #f1cfc8;border-left:4px solid var(--red);border-radius:8px;padding:11px 15px;margin:12px 0}
+.trap-card b{color:var(--red);font-size:14px}
+.trap-card p{margin:4px 0;font-size:13.5px;line-height:1.7;background:transparent}
+.step{display:flex;gap:11px;margin:8px 0}
+.step .n{flex:0 0 auto;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--red);
+  color:#fff;font-size:12px;font-weight:800;margin-top:3px}
+.step .body{flex:1 1 auto;min-width:0;background:rgba(253,250,242,.86)}
+.step .body p{background:transparent}
+.ans{margin:12px 0 8px 34px;padding:9px 14px;border:2px solid var(--red);border-radius:4px;background:#fff7f5;line-height:1.7}
+.ans .lbl{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--red);display:block;margin-bottom:3px}
+.box{display:inline-block;border:2px double var(--ink);border-radius:3px;padding:2px 10px;background:#fffdf5}
+.ind{margin-left:34px;background:rgba(253,250,242,.86)}
+.big{margin:6px 0 6px 34px;font-size:17px;background:rgba(253,250,242,.86);padding:2px 0}
+.tblwrap{overflow-x:auto;margin:8px 0 8px 34px;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;margin:6px 0;font-family:'Cambria Math',Cambria,serif;font-size:14.5px;line-height:1.45;background:#fff}
+th,td{border:1.5px solid #2b3340;padding:3px 9px;text-align:center;white-space:nowrap;background:#fff}
+thead th{background:#eef2f7;font-weight:700;font-family:'Segoe UI',sans-serif;font-size:12.5px}
+td.T{color:var(--ok);font-weight:700}
+td.F{color:#b03030;font-weight:700}
+.worked{background:#f7fcf4;border:1.5px solid #cde3c2;border-left:4px solid var(--ok);border-radius:8px;padding:11px 15px;margin:12px 0}
+.worked h4{margin:0 0 6px;font-size:12px;color:#1e7a3c;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+.worked p{background:transparent}
+details{background:#f7f5ec;border:1.5px dashed #cfc6af;border-radius:8px;padding:10px 14px;margin:12px 0}
+details summary{cursor:pointer;font-weight:800;font-size:13.5px;color:var(--blue)}
+details[open] summary{margin-bottom:8px}
+details p{background:transparent;font-size:14px}
+.formula{font-family:'Cambria Math',Cambria,serif;font-size:13px;line-height:1.6;padding:6px 8px;border-radius:4px;
+  background:rgba(255,255,255,.62);margin-bottom:6px;border-left:3px solid #b8ab6a}
+.formula small{display:block;font-family:'Segoe UI',sans-serif;font-size:10.5px;color:#61531e;margin-top:2px}
+.kv{display:flex;justify-content:space-between;gap:8px;font-size:12px;padding:4px 0;border-bottom:1px dashed rgba(160,140,60,.35)}
+.kv:last-child{border-bottom:none}
+.kv span{color:#61531e;font-weight:600}
+.kv b{font-weight:800;text-align:right;color:#2c2206}
+.cheat-tag{display:inline-block;background:var(--red);color:#fff;font-size:9.5px;font-weight:800;
+  padding:2px 6px;border-radius:3px;text-transform:uppercase;letter-spacing:.05em;margin:6px 0 4px}
+.toggles{display:none;gap:8px;position:sticky;top:8px;z-index:60;margin-bottom:12px}
+.toggles button{flex:1;padding:8px;border-radius:4px;border:1px solid var(--sticky-edge);
+  background:linear-gradient(175deg,#fffbc7,var(--sticky));font-weight:800;font-size:12.5px;color:#332906;cursor:pointer}
+@media (max-width:1240px){
+  .wrap{grid-template-columns:220px minmax(0,1fr)}
+  .rail.right{display:none}
+  .toggles{display:flex}
+  .rail.right.open{display:block;position:fixed;top:0;right:0;bottom:0;width:300px;max-height:none;z-index:70;
+    background:var(--desk);padding:14px;box-shadow:-8px 0 24px rgba(40,30,10,.25);overflow:auto}
+}
+@media (max-width:900px){
+  .wrap{grid-template-columns:minmax(0,1fr)}
+  .rail.left{display:none;position:fixed;top:0;left:0;bottom:0;width:280px;max-height:none;z-index:70;
+    background:var(--desk);padding:14px;box-shadow:8px 0 24px rgba(40,30,10,.25);overflow:auto}
+  .rail.left.open{display:block}
+  .sheet{padding:20px 14px 26px 54px;font-size:14.5px;line-height:1.7;background-image:
+    linear-gradient(to right,transparent 0 38px,var(--margin-line) 38px 39.4px,transparent 39.4px),
+    repeating-linear-gradient(to bottom,transparent 0 33px,var(--rule) 33px 34px)}
+  .sheet::before,.sheet::after{left:12px;width:14px;height:14px}
+  .tblwrap,.big,.ind,.ans{margin-left:0}
+  .head h2{font-size:18px}.badge{width:42px;height:42px;font-size:18px}
+  table{font-size:12.5px} th,td{padding:2px 5px}
+}
+@media print{body{background:#fff;padding:0}.rail,.toggles{display:none!important}.wrap{display:block;max-width:none}
+  .sheet{box-shadow:none;border:none;border-radius:0;margin:0;page-break-after:always;max-width:none}}
+
+.contoh{background:#f4faf5;border:1px solid #cfe6d4;border-left:4px solid var(--ok);border-radius:4px;padding:10px 14px;margin:10px 0 14px;font-size:13.5px;line-height:1.7}
+.contoh .lbl2{display:inline-block;font-size:9.5px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:var(--ok);padding:2px 7px;border-radius:3px;margin-right:7px;vertical-align:1px}
+.contoh p{margin:3px 0}
+.bedah{background:#fff;border:1px solid #ddd6c0;border-radius:5px;box-shadow:0 2px 0 #e6e0cc;padding:16px 18px;margin:16px 0}
+.bedah .top{display:flex;align-items:center;gap:7px;margin-bottom:8px}
+.bedah .no{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 6px;border-radius:999px;background:var(--red);color:#fff;font-size:11px;font-weight:900}
+.bedah .ttl{font-size:11px;font-weight:900;letter-spacing:.09em;text-transform:uppercase;color:var(--red)}
+.bedah .soal{font-size:14px;font-weight:600;line-height:1.65;margin:0 0 10px;padding:10px 13px;background:#fbf9f2;border:1px dashed #ddd5bd;border-radius:4px}
+.bedah h5{margin:12px 0 4px;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue)}
+.bedah .baca{font-size:13px;line-height:1.7;margin:2px 0}
+.bedah .baca b{color:var(--red)}
+.bedah ol,.bedah ul{padding-left:22px;margin:5px 0}
+.bedah ol li,.bedah ul li{font-size:13.5px;line-height:1.75;margin-bottom:3px}
+.bedah .jawab{background:#eaf8ee;border-left:4px solid var(--ok);border-radius:4px;padding:9px 13px;font-size:13.5px;line-height:1.65;margin-top:10px}
+.bedah .jeb{font-size:12.5px;color:#7a3b12;background:#fff6e8;border-left:3px solid #d98b2b;padding:7px 11px;border-radius:3px;margin-top:9px;line-height:1.6}
+
+  table.txt{width:100%;table-layout:fixed}
+  table.txt th,table.txt td{white-space:normal;word-wrap:break-word}
+
+  table.op{font-size:12px}
+  table.op th,table.op td{padding:2px 4px}
+  table.op th small{display:block;font-weight:400;font-size:8.5px;color:#6b7280;letter-spacing:0}
+
+.tv{display:inline-block;font-family:monospace;font-weight:800;font-size:10.5px;padding:0 4px;border-radius:3px;vertical-align:1px;letter-spacing:0}
+.tv.t{background:#dff2e4;color:#1e7a3c;border:1px solid #b9dfc3}
+.tv.f{background:#fbe4e1;color:#a93226;border:1px solid #f0c2bb}
+
+.slide-crop{margin:18px 0 22px;padding:10px 10px 8px;background:#f8fafc;border:1px solid #cbd5e1;border-radius:8px}
+.slide-crop img{display:block;width:100%;height:auto;max-height:620px;object-fit:contain;background:#fff;border:1px solid #e2e8f0}
+.slide-crop figcaption{margin-top:7px;font:11px/1.45 ui-monospace,SFMono-Regular,Consolas,monospace;color:#64748b}
+.slide-crop figcaption b{color:#334155}
+
+pre.c-code{
+  background:#1e1e1e;
+  color:#d4d4d4;
+  padding:12px 14px;
+  border-radius:6px;
+  font-family:'Consolas','Cascadia Mono','Courier New',monospace;
+  font-size:13px;
+  line-height:1.55;
+  overflow-x:auto;
+  margin:10px 0 12px;
+  border:1px solid #333;
+}
+pre.c-code .kwd{color:#569cd6;font-weight:700}
+pre.c-code .typ{color:#4ec9b0}
+pre.c-code .str{color:#ce9178}
+pre.c-code .num{color:#b5cea8}
+pre.c-code .com{color:#6a9955;font-style:italic}
+pre.c-code .pp{color:#c586c0}
+code.inline-c{
+  background:rgba(30,30,30,.08);
+  color:#a31515;
+  padding:1px 5px;
+  border-radius:3px;
+  font-family:'Consolas',monospace;
+  font-size:13px;
+}
+@media (max-width:900px){.toggles button{flex:1 1 0;min-width:0;font-size:11.5px;padding:7px 6px}}
+.head h2,.trap-card p,.bedah,.drill{overflow-wrap:anywhere}
+</style>
+</head>
+<body>
+
+<div class="toggles">
+  <button type="button" onclick="document.getElementById('railLeft').classList.toggle('open')">☰ Daftar Materi</button>
+  <button type="button" onclick="document.getElementById('railRight').classList.toggle('open')">📌 Rumus Cepat</button>
+</div>
+
+<div class="wrap">
+
+<!-- ================= RAIL KIRI ================= -->
+<aside class="rail left" id="railLeft">
+  <div class="panel">
+    <div class="total"><b>7 Modul</b><span>UTS AlProg</span></div>
+    <div class="pbar"><i style="width:100%"></i></div>
+    <h4>Urutan Belajar</h4>
+    <ul class="road">
+      <li class="now"><span class="dot"></span><a href="#peta">Peta Ujian &amp; Info Matkul<small>Format &amp; aturan main</small></a></li>
+      <li><span class="dot"></span><a href="#kamus">Kamus Kalimat Ujian<small>Arti kata soal C &amp; alur</small></a></li>
+      <li><span class="dot"></span><a href="#m1">1 · Flowchart &amp; Pseudo-code<small>Sesi 1-2 · Notasi kapital &amp; IPO</small></a></li>
+      <li><span class="dot"></span><a href="#m2">2 · Sintaks C &amp; Formatted I/O<small>Sesi 3-4 · Buffer &amp; specifier</small></a></li>
+      <li><span class="dot"></span><a href="#m3">3 · Operator &amp; Precedence<small>Sesi 5-6 · Bitwise &amp; prefix</small></a></li>
+      <li><span class="dot"></span><a href="#m4">4 · Selection (If &amp; Switch)<small>Sesi 7 · Fall-through</small></a></li>
+      <li><span class="dot"></span><a href="#m5">5 · Repetition (Looping)<small>Sesi 8 · Sentinel &amp; jump</small></a></li>
+      <li><span class="dot"></span><a href="#m6">6 · Pointer &amp; Array 1D/2D<small>Sesi 9-10 · *(arr+i) &amp; string</small></a></li>
+      <li><span class="dot"></span><a href="#m7">7 · Function &amp; Recursion<small>Sesi 13-14 · Call stack &amp; base</small></a></li>
+      <li><span class="dot"></span><a href="#cheat">Cheat Sheet A4<small>Ringkasan wajib tulis tangan</small></a></li>
+      <li><span class="dot"></span><a href="#trap">10 Jebakan Nilai<small>Baca sebelum masuk lab</small></a></li>
+    </ul>
+  </div>
+  <div class="panel" style="background:#fff4e6;border-color:#fad1a2">
+    <h4 style="color:#a84300;border-bottom-color:rgba(180,80,0,.3)">Ujian AlProg</h4>
+    <div class="kv" style="border-bottom-color:rgba(180,80,0,.25)"><span>Kode Matkul</span><b>COMP6421031</b></div>
+    <div class="kv" style="border-bottom-color:rgba(180,80,0,.25)"><span>Kelas / Lab</span><b>LA75 / BA75</b></div>
+    <div class="kv" style="border-bottom-color:rgba(180,80,0,.25)"><span>Dosen</span><b>Moh. Erdda Habiby</b></div>
+    <div class="kv"><span>Materi Resmi</span><b>COMP6047 Deck</b></div>
+  </div>
+</aside>
+
+<main>
+
+<!-- ================= PETA ================= -->
+<section class="sheet" id="peta">
+  <div class="head">
+    <div class="badge">UTS</div>
+    <div>
+      <h2>Persiapan UTS Algorithm &amp; Programming (COMP6421031)</h2>
+      <div class="sub">Kurikulum BINUS · Dosen: Moh. Erdda Habiby, S.ST, M.Kom. · Referensi: Deitel &amp; Deitel (C How to Program 8th ed)</div>
+    </div>
+  </div>
+
+  <div class="trap-card">
+    <b>Aturan main ujian AlProg BINUS:</b>
+    <p>1. <b>Format Penulisan Sangat Ketat:</b> Pada bagian pseudo-code, BINUS memakai notasi kapital: <span class="m">INPUT, OUTPUT, COMPUTE, STORE, DOWHILE ... ENDDO, IF ... THEN ... ELSE ... ENDIF</span>. Menulis gaya bahasa pemrograman lain (Python/JS) langsung dipotong nilai.</p>
+    <p>2. <b>Tracer Table (Dry Run):</b> Untuk soal tracing loop / array / pointer, jangan cuma tulis output akhir! Kolom variabel iterasi, kondisi perulangan, dan isi buffer wajib lu tampilkan rapi.</p>
+    <p>3. <b>Zero Tolerance String Null-Terminator:</b> Array karakter di C wajib berakhiran <code class="inline-c">'\0'</code>. Mengalokasikan array ukuran <span class="m">N</span> untuk menampung teks <span class="m">N</span> huruf adalah bug fatal klasik.</p>
+  </div>
+
+  <div class="sec">Peta 7 Topik Inti Ujian</div>
+  <p>1. <b>Algorithm, Flowchart &amp; Pseudo-code (Sesi 1-2):</b> Analisis IPO (Input-Process-Output), simbol terminator/decision/preparation, Structure Theorem (Sequence, Selection, Repetition).</p>
+  <p>2. <b>Sintaks Dasar C &amp; Formatted I/O (Sesi 3-4):</b> Struktur fungsi <code class="inline-c">main()</code>, tokens, escape sequences, specifier <code class="inline-c">%d, %f, %.2f, %c, %s, %[^
+]</code>, pembersihan buffer <code class="inline-c">getchar()</code>.</p>
+  <p>3. <b>Operator &amp; Precedence (Sesi 5-6):</b> Arithmetic, relational, logical short-circuit (<code class="inline-c">&amp;&amp;, ||</code>), prefix vs postfix (<code class="inline-c">++x</code> vs <code class="inline-c">x++</code>), bitwise (<code class="inline-c">&amp;, |, ^, ~, &lt;&lt;, &gt;&gt;</code>).</p>
+  <p>4. <b>Selection Control (Sesi 7):</b> Nested if, dangling else problem, switch-case fall-through (wajib hafal perilaku jika <code class="inline-c">break</code> lupa ditulis).</p>
+  <p>5. <b>Repetition Control (Sesi 8):</b> <code class="inline-c">for, while, do-while</code> (minimal 1 kali eksekusi), loop berperingkat (nested loop), sentinel value, <code class="inline-c">break</code> vs <code class="inline-c">continue</code>.</p>
+  <p>6. <b>Pointer &amp; Arrays (Sesi 9-10):</b> Hubungan <code class="inline-c">arr[i]</code> dengan <code class="inline-c">*(arr + i)</code>, pointer constant vs pointer variable, array 2D row-major, manipulasi string (<code class="inline-c">string.h</code>: <code class="inline-c">strlen, strcpy, strcmp, strcat</code>).</p>
+  <p>7. <b>Function &amp; Recursion (Sesi 13-14):</b> Passing parameter by-value vs by-reference (pointer), function prototype, variable scope (local vs global), recursive call stack &amp; base case.</p>
+</section>
+
+<!-- ================= KAMUS SOAL ================= -->
+<section class="sheet" id="kamus">
+  <div class="head">
+    <div class="badge">?</div>
+    <div>
+      <h2>Kamus Soal: Kalimat Ujian → Harus Ngapain</h2>
+      <div class="sub">Baca ini dulu sebelum buka modul. Ini yang bikin lu nggak blank waktu membaca lembar soal.</div>
+    </div>
+  </div>
+
+  <div class="bedah">
+    <div class="top"><span class="no">1</span><b>"Tuliskan Pseudo-code dan Flowchart untuk memvalidasi..."</b></div>
+    <div class="soal">Contoh: "Buat algoritma sistem kasir yang membaca kode barang 10 digit, berhenti jika kode bernilai 0000000000."</div>
+    <div class="baca">
+      <b>Arti sebenarnya:</b> Dosen mau menguji kemampuan dekomposisi IPO (Input-Process-Output) dan penerapan loop sentinel.
+      <ul>
+        <li>Tentukan input: <code class="inline-c">productCode, qty, price</code>.</li>
+        <li>Tentukan terminator loop: berhenti jika <code class="inline-c">productCode == "0000000000"</code>.</li>
+        <li>Pakai kata kunci BINUS resmi: <code class="inline-c">DOWHILE ... ENDDO</code> atau <code class="inline-c">WHILE ... ENDWHILE</code>.</li>
+      </ul>
+    </div>
+    <div class="jawab"><b>Tindakan:</b> Gambar belah ketupat (decision) untuk cek sentinel, jajar genjang (I/O) untuk input kasir, persegi panjang untuk akumulator <span class="m">total = total + (qty * price)</span>.</div>
+  </div>
+
+  <div class="bedah">
+    <div class="top"><span class="no">2</span><b>"Tentukan Output dari Potongan Kode Berikut (Dry Run / Tracing)"</b></div>
+    <div class="soal">Contoh: Soal dengan operasi pre-increment campuran di dalam ekspresi aritmatika atau rekursif bersarang.</div>
+    <div class="baca">
+      <b>Arti sebenarnya:</b> Dosen mencari apakah lu terjebak di urutan evaluasi (associativity) dan efek samping (side effects).
+      <ul>
+        <li>Tulis tabel tracing berisi: No baris, Nilai variabel tiap langkah, Output di layar.</li>
+        <li>Pre-increment (<code class="inline-c">++x</code>): tambahkan 1 dulu ke variabel, baru nilainya dipakai dalam ekspresi.</li>
+        <li>Post-increment (<code class="inline-c">x++</code>): pakai nilai lama dalam ekspresi, setelah itu baru variabel naik 1.</li>
+      </ul>
+    </div>
+    <div class="jawab"><b>Tindakan:</b> Jangan hitung di kepala. Buat 3 kolom di kertas buram: <code class="inline-c">Langkah | Nilai Var | Layar</code>.</div>
+  </div>
+
+  <div class="bedah">
+    <div class="top"><span class="no">3</span><b>"Buat Fungsi Rekursif untuk Menghitung..."</b></div>
+    <div class="soal">Contoh: Faktorial, deret Fibonacci, perkalian via penjumlahan berulang, atau pembalik string.</div>
+    <div class="baca">
+      <b>Arti sebenarnya:</b> Validasi 2 syarat mutlak rekursi: <b>Base Case</b> (kondisi stop tanpa rekursi) dan <b>Reduction Step</b> (parameter harus mengecil menuju base case).
+    </div>
+    <div class="jawab"><b>Tindakan:</b> Tulis <code class="inline-c">if (base_condition) return nilai_tetap;</code> paling atas, baru diikuti <code class="inline-c">return f(n-1) ...</code>.</div>
+  </div>
+</section>
+
+<!-- ================= MODUL 1 ================= -->
+<section class="sheet" id="m1">
+  <div class="head">
+    <div class="badge">M1</div>
+    <div>
+      <h2>Modul 1 · Algorithm, Flowchart &amp; Pseudo-code (Sesi 1-2)</h2>
+      <div class="sub">Slide Resmi: 01_algoprg_flowchart_pseudocode.pptx (40 slide) · Sesi 1-2</div>
+    </div>
+  </div>
+
+  <div class="analogi">
+    <h4>Analogi: Resep Masak Presisi</h4>
+    <p>Komputer itu juru masak buta dan tuli. Algoritma adalah urutan langkah terstruktur yang tidak meninggalkan celah tafsir ganda. Kalau lu bilang "tambahkan garam secukupnya", itu bukan algoritma. Kalau lu bilang "tambahkan 5 gram garam saat air mencapai 100°C", itu algoritma.</p>
+  </div>
+
+  <div class="sec">1. Alur Pemecahan Masalah (Development Steps)</div>
+  <p>Di slide 6 BINUS, tahapan pemecahan masalah memakai komputer ada 6 tahap terstandar:</p>
+  <div class="step"><div class="n">1</div><div class="body"><b>Problem Definition:</b> Identifikasi masalah secara jelas (apa input yang tersedia, apa output yang diminta).</div></div>
+  <div class="step"><div class="n">2</div><div class="body"><b>Model Development:</b> Rumus matematika atau model logika (misal persamaan kuadrat <span class="m">ax² + bx + c = 0</span>, hitung diskriminan <span class="m">d = b² - 4ac</span>).</div></div>
+  <div class="step"><div class="n">3</div><div class="body"><b>Algorithm Design:</b> Representasi logika lewat Flowchart atau Pseudo-code sebelum menulis sintaks bahasa.</div></div>
+  <div class="step"><div class="n">4</div><div class="body"><b>Writing Code:</b> Mengubah algoritma ke Source Code (bahasa C).</div></div>
+  <div class="step"><div class="n">5</div><div class="body"><b>Compile &amp; Run:</b> Kompilasi ke file executable. Jika ada Syntax Error perbaiki, jika ada Output / Logic Error perbaiki alurnya.</div></div>
+  <div class="step"><div class="n">6</div><div class="body"><b>Documentation:</b> Dokumentasi kode agar mudah dirawat.</div></div>
+
+  <div class="slide-crop">
+    <img src="img/01-s6.png" alt="Development Steps Slide 6">
+  </div>
+
+  <div class="sec">2. Standard Pseudo-code BINUS (Kapital Penuh)</div>
+  <p>BINUS menggunakan 6 kata kerja operasional standar dalam penulisan pseudo-code:</p>
+  <div class="tblwrap">
+    <table>
+      <thead><tr><th>Aksi</th><th>Kata Kunci BINUS</th><th>Contoh Penulisan</th></tr></thead>
+      <tbody>
+        <tr><td><b>Input</b></td><td><code class="inline-c">INPUT, READ</code></td><td><code class="inline-c">INPUT a, b, c</code></td></tr>
+        <tr><td><b>Output</b></td><td><code class="inline-c">OUTPUT, PRINT, WRITE</code></td><td><code class="inline-c">PRINT "Nilai Rata-rata =", avg</code></td></tr>
+        <tr><td><b>Kalkulasi</b></td><td><code class="inline-c">COMPUTE, CALCULATE</code></td><td><code class="inline-c">COMPUTE d = (b * b) - (4 * a * c)</code></td></tr>
+        <tr><td><b>Penyimpanan</b></td><td><code class="inline-c">STORE, SET</code></td><td><code class="inline-c">STORE 0 TO total</code></td></tr>
+        <tr><td><b>Kondisi</b></td><td><code class="inline-c">IF ... THEN ... ELSE ... ENDIF</code></td><td><code class="inline-c">IF d &lt; 0 THEN PRINT "Imaginary" ENDIF</code></td></tr>
+        <tr><td><b>Perulangan</b></td><td><code class="inline-c">DOWHILE ... ENDDO</code></td><td><code class="inline-c">DOWHILE x &lt;= 10 ... ENDDO</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="contoh">
+    <span class="lbl2">CONTOH STANDAR UJIAN: PERSAMAAN KUADRAT</span>
+    <p><b>Model Pseudo-code Resmi:</b></p>
+    <pre class="c-code">
+INPUT a, b, c
+COMPUTE d = (b * b) - (4 * a * c)
+IF d &lt; 0 THEN
+    PRINT "Akar Imajiner"
+ELSE
+    COMPUTE x1 = (-b + SQRT(d)) / (2 * a)
+    COMPUTE x2 = (-b - SQRT(d)) / (2 * a)
+    PRINT "Akar 1 =", x1
+    PRINT "Akar 2 =", x2
+ENDIF
+    </pre>
+  </div>
+
+  <div class="sec">3. Structured Program Theorem</div>
+  <p>Semua program di dunia, sekompleks apapun, hanya dibangun dari 3 struktur kendali dasar:</p>
+  <p>1. <b>Sequence:</b> Eksekusi sekuensial instruksi demi instruksi dari atas ke bawah.</p>
+  <p>2. <b>Selection:</b> Percabangan alur berdasarkan pengujian nilai kebenaran (<code class="inline-c">IF, IF-ELSE, SWITCH</code>).</p>
+  <p>3. <b>Repetition:</b> Pengulangan blok instruksi selama kondisi terpenuhi (<code class="inline-c">FOR, WHILE, DO-WHILE</code>).</p>
+</section>
+
+<!-- ================= MODUL 2 ================= -->
+<section class="sheet" id="m2">
+  <div class="head">
+    <div class="badge">M2</div>
+    <div>
+      <h2>Modul 2 · Sintaks Dasar C &amp; Formatted I/O (Sesi 3-4)</h2>
+      <div class="sub">Slide Resmi: 03_intro_C_I.pptx (24 slide) &amp; 04_intro_C_II_formatted_IO.pptx (55 slide)</div>
+    </div>
+  </div>
+
+  <div class="sec">1. Struktur Program C &amp; Format main()</div>
+  <p>Bahasa C bersifat <b>case-sensitive</b>. Eksekusi program selalu dimulai dari fungsi <code class="inline-c">main()</code>. Di standar ujian BINUS, bentuk standar penulisan yang diakui resmi adalah:</p>
+  <pre class="c-code">
+<span class="pp">#include</span> <span class="str">&lt;stdio.h&gt;</span>
+
+<span class="typ">int</span> <span class="kwd">main</span>() {
+    <span class="com">/* Pernyataan diakhiri titik-koma (;) */</span>
+    <span class="kwd">printf</span>(<span class="str">"Welcome to BINUS\n"</span>);
+    <span class="kwd">return</span> <span class="num">0</span>; <span class="com">/* Sinyal program keluar normal */</span>
+}
+  </pre>
+
+  <div class="sec">2. Tipe Data Primitif &amp; Jangkauan Memori</div>
+  <div class="tblwrap">
+    <table>
+      <thead><tr><th>Tipe Data</th><th>Ukuran</th><th>Format Specifier</th><th>Rentang Nilai Standar</th></tr></thead>
+      <tbody>
+        <tr><td><code class="inline-c">char</code></td><td>1 Byte</td><td><code class="inline-c">%c</code></td><td>-128 sampai 127 (ASCII)</td></tr>
+        <tr><td><code class="inline-c">unsigned char</code></td><td>1 Byte</td><td><code class="inline-c">%c</code> / <code class="inline-c">%d</code></td><td>0 sampai 255</td></tr>
+        <tr><td><code class="inline-c">int</code></td><td>4 Byte</td><td><code class="inline-c">%d</code> atau <code class="inline-c">%i</code></td><td>-2,147,483,648 sampai 2,147,483,647</td></tr>
+        <tr><td><code class="inline-c">unsigned int</code></td><td>4 Byte</td><td><code class="inline-c">%u</code></td><td>0 sampai 4,294,967,295</td></tr>
+        <tr><td><code class="inline-c">float</code></td><td>4 Byte</td><td><code class="inline-c">%f</code></td><td>3.4E-38 sampai 3.4E+38 (presisi ~6 digit)</td></tr>
+        <tr><td><code class="inline-c">double</code></td><td>8 Byte</td><td><code class="inline-c">%lf</code></td><td>1.7E-308 sampai 1.7E+308 (presisi ~15 digit)</td></tr>
+        <tr><td><code class="inline-c">string (char[])</code></td><td>Array + 1</td><td><code class="inline-c">%s</code></td><td>Kumpulan karakter berakhiran <code class="inline-c">'\0'</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec">3. Formatted Input &amp; Masalah Buffer scanf</div>
+  <div class="trap-card">
+    <b>Jebakan Klasik scanf: Buffer Newline Tertinggal!</b>
+    <p>Ketika lu mengetik angka lalu menekan Enter, karakter <code class="inline-c">\n</code> masih tertinggal di input buffer. Jika baris berikutnya membaca <code class="inline-c">%c</code> atau string, <code class="inline-c">scanf</code> akan langsung menelan karakter newline tersebut dan melewatinya tanpa menunggu input user!</p>
+    <p><b>Solusi Resmi Ujian:</b> Gunakan spasi sebelum <code class="inline-c">%c</code> atau panggil <code class="inline-c">getchar()</code>:</p>
+    <pre class="c-code">
+<span class="typ">int</span> umur;
+<span class="typ">char</span> gender;
+<span class="kwd">scanf</span>(<span class="str">"%d"</span>, &amp;umur);
+<span class="kwd">scanf</span>(<span class="str">" %c"</span>, &amp;gender); <span class="com">/* Perhatikan SPASI sebelum %c */</span>
+    </pre>
+  </div>
+
+  <div class="sec">4. Format Output printf: Width &amp; Precision</div>
+  <p>Sintaks lengkap: <code class="inline-c">%[flags][width][.precision]type</code></p>
+  <ul>
+    <li><code class="inline-c">printf("%6d", 34);</code> → Menghasilkan <code class="inline-c">    34</code> (rata kanan, lebar 6 kolom).</li>
+    <li><code class="inline-c">printf("%-6d", 34);</code> → Menghasilkan <code class="inline-c">34    </code> (rata kiri, ada tanda minus).</li>
+    <li><code class="inline-c">printf("%8.2f", 3.14159);</code> → Menghasilkan <code class="inline-c">    3.14</code> (lebar 8 kolom, 2 angka di belakang koma).</li>
+    <li>Membaca string ber-spasi: <code class="inline-c">scanf("%[^
+]", str);</code> (membaca seluruh kalimat sampai tombol enter).</li>
+  </ul>
+</section>
+
+<!-- ================= MODUL 3 ================= -->
+<section class="sheet" id="m3">
+  <div class="head">
+    <div class="badge">M3</div>
+    <div>
+      <h2>Modul 3 · Operator, Operand &amp; Precedence (Sesi 5-6)</h2>
+      <div class="sub">Slide Resmi: 05_operator_operand_aritmatika.pptx (37 slide) · Sesi 5-6</div>
+    </div>
+  </div>
+
+  <div class="sec">1. Pre-increment (++x) vs Post-increment (x++)</div>
+  <p>Perbedaan kedua operator ini mutlak dikuasai untuk soal-soal tracing tracing kode:</p>
+  <ul>
+    <li><b>Pre-increment (<code class="inline-c">++x</code>):</b> Nilai <code class="inline-c">x</code> dinaikkan 1 dulu, kemudian nilai barunya dipakai dalam ekspresi.</li>
+    <li><b>Post-increment (<code class="inline-c">x++</code>):</b> Nilai <code class="inline-c">x</code> yang lama dipakai dulu dalam perhitungan, setelah baris/sub-ekspresi itu selesai baru nilai <code class="inline-c">x</code> bertambah 1.</li>
+  </ul>
+
+  <div class="contoh">
+    <span class="lbl2">BEDAH KASUS EKSPRESI TERIKAT</span>
+    <pre class="c-code">
+<span class="typ">int</span> x = <span class="num">44</span>, y = <span class="num">44</span>;
+<span class="typ">int</span> z1 = ++x; <span class="com">/* x jadi 45, lalu z1 diisi 45 */</span>
+<span class="typ">int</span> z2 = y++; <span class="com">/* z2 diisi nilai lama 44, setelah itu y jadi 45 */</span>
+    </pre>
+  </div>
+
+  <div class="sec">2. Operator Bitwise (Operasi Bit per Bit)</div>
+  <div class="tblwrap">
+    <table>
+      <thead><tr><th>Operator</th><th>Nama</th><th>Penjelasan</th><th>Contoh (A=24=011000b, B=35=100011b)</th></tr></thead>
+      <tbody>
+        <tr><td><code class="inline-c">&amp;</code></td><td>Bitwise AND</td><td>1 jika kedua bit bernilai 1</td><td><code class="inline-c">24 &amp; 35 = 0</code> (000000b)</td></tr>
+        <tr><td><code class="inline-c">|</code></td><td>Bitwise OR</td><td>1 jika salah satu atau kedua bit bernilai 1</td><td><code class="inline-c">24 | 35 = 59</code> (111011b)</td></tr>
+        <tr><td><code class="inline-c">^</code></td><td>Bitwise XOR</td><td>1 jika kedua bit <b>BERBEDA</b></td><td><code class="inline-c">45 ^ 75 = 102</code> (slide 23)</td></tr>
+        <tr><td><code class="inline-c">~</code></td><td>Complement (NOT)</td><td>Membalik semua bit 0 jadi 1 dan 1 jadi 0</td><td><code class="inline-c">~0xC3 = 0x3C</code> (slide 24)</td></tr>
+        <tr><td><code class="inline-c">&lt;&lt;</code></td><td>Shift Left</td><td>Geser bit ke kiri (mengalikan 2^n)</td><td><code class="inline-c">78 &lt;&lt; 2 = 312</code> (78 * 4)</td></tr>
+        <tr><td><code class="inline-c">&gt;&gt;</code></td><td>Shift Right</td><td>Geser bit ke kanan (membagi bulat 2^n)</td><td><code class="inline-c">78 &gt;&gt; 3 = 9</code> (78 / 8)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="slide-crop">
+    <img src="img/05-s22.png" alt="Bitwise Operators Slide 22">
+  </div>
+
+  <div class="sec">3. Short-Circuit Evaluation pada Operator Logika</div>
+  <p>Pada bahasa C, operator logika <code class="inline-c">&amp;&amp;</code> (AND) dan <code class="inline-c">||</code> (OR) dievaluasi dari kiri ke kanan dengan sifat pemangkasan cepat (short-circuit):</p>
+  <ul>
+    <li>Pada <code class="inline-c">A &amp;&amp; B</code>: Jika ekspresi <code class="inline-c">A</code> bernilai <b>FALSE (0)</b>, maka ekspresi <code class="inline-c">B</code> <b>TIDAK AKAN PERNAH DIEKSEKUSI</b> karena hasil akhir pasti FALSE.</li>
+    <li>Pada <code class="inline-c">A || B</code>: Jika ekspresi <code class="inline-c">A</code> bernilai <b>TRUE (non-zero)</b>, maka ekspresi <code class="inline-c">B</code> <b>TIDAK AKAN DIEKSEKUSI</b> karena hasil akhir pasti TRUE.</li>
+  </ul>
+</section>
+
+<!-- ================= MODUL 4 ================= -->
+<section class="sheet" id="m4">
+  <div class="head">
+    <div class="badge">M4</div>
+    <div>
+      <h2>Modul 4 · Program Control: Selection (Sesi 7)</h2>
+      <div class="sub">Slide Resmi: 07_program_control_selection.pptx (36 slide) · Sesi 7</div>
+    </div>
+  </div>
+
+  <div class="sec">1. Bentuk-Bentuk Percabangan</div>
+  <p>C mendukung 3 struktur pemilihan keputusan: <code class="inline-c">if</code>, <code class="inline-c">if-else</code>, dan <code class="inline-c">switch-case</code>, serta operator ternary <code class="inline-c">? :</code>.</p>
+
+  <div class="sec">2. Switch-Case &amp; Bahaya Fall-Through</div>
+  <div class="trap-card">
+    <b>Jebakan switch-case tanpa break!</b>
+    <p>Di dalam blok <code class="inline-c">switch</code>, label <code class="inline-c">case</code> hanyalah penanda titik lompat. Jika sebuah case cocok dan di dalamnya tidak terdapat perintah <code class="inline-c">break;</code>, program akan terus mengeksekusi semua case di bawahnya tanpa mempedulikan kondisi lagi (fall-through)!</p>
+  </div>
+
+  <div class="contoh">
+    <span class="lbl2">CONTOH FALL-THROUGH DARI DECK RESMI</span>
+    <pre class="c-code">
+<span class="typ">int</span> x = <span class="num">2</span>;
+<span class="kwd">switch</span>(x) {
+    <span class="kwd">case</span> <span class="num">1</span>: <span class="kwd">printf</span>(<span class="str">"A"</span>);
+    <span class="kwd">case</span> <span class="num">2</span>: <span class="kwd">printf</span>(<span class="str">"B"</span>); <span class="com">/* Masuk sini karena x == 2 */</span>
+    <span class="kwd">case</span> <span class="num">3</span>: <span class="kwd">printf</span>(<span class="str">"C"</span>); <span class="kwd">break</span>; <span class="com">/* Lanjut cetak C lalu BREAK */</span>
+    <span class="kwd">case</span> <span class="num">4</span>: <span class="kwd">printf</span>(<span class="str">"D"</span>);
+    <span class="kwd">default</span>: <span class="kwd">printf</span>(<span class="str">"E"</span>);
+}
+<span class="com">/* Output yang tercetak di layar: BC */</span>
+    </pre>
+  </div>
+
+  <div class="slide-crop">
+    <img src="img/07-s17.png" alt="Flowchart SWITCH-CASE Slide 17">
+  </div>
+
+  <div class="sec">3. Jenis-Jenis Error pada Pemrograman C (Slide 25)</div>
+  <ul>
+    <li><b>Compile-Time Error:</b> Kesalahan sintaks kode (titik-koma hilang, typo variabel). Dideteksi saat kompilasi.</li>
+    <li><b>Link-Time Error:</b> Terjadi saat proses linking (misal lupa menyertakan prototipe library atau nama fungsi salah panggil).</li>
+    <li><b>Run-Time Error:</b> Program lolos kompilasi tapi crash saat berjalan (pembagian dengan nol, overflow memori).</li>
+    <li><b>Logical Error:</b> Program berjalan lancar tanpa crash, tapi rumus atau logika salah sehingga output keliru. <b>Ini adalah error paling sulit didebug!</b></li>
+  </ul>
+</section>
+
+<!-- ================= MODUL 5 ================= -->
+<section class="sheet" id="m5">
+  <div class="head">
+    <div class="badge">M5</div>
+    <div>
+      <h2>Modul 5 · Program Control: Repetition (Sesi 8)</h2>
+      <div class="sub">Slide Resmi: 08_program_control_repetition.pptx (40 slide) · Sesi 8</div>
+    </div>
+  </div>
+
+  <div class="sec">1. Perbandingan for, while, dan do-while</div>
+  <div class="tblwrap">
+    <table>
+      <thead><tr><th>Jenis Loop</th><th>Waktu Evaluasi Kondisi</th><th>Eksekusi Minimum</th><th>Penggunaan Terbaik</th></tr></thead>
+      <tbody>
+        <tr><td><code class="inline-c">for</code></td><td>Di awal sebelum blok dijalankan</td><td>0 kali</td><td>Jumlah iterasi sudah pasti diketahui</td></tr>
+        <tr><td><code class="inline-c">while</code></td><td>Di awal sebelum blok dijalankan</td><td>0 kali</td><td>Perulangan berbasis kondisi, belum tentu jalan</td></tr>
+        <tr><td><code class="inline-c">do-while</code></td><td><b>Di akhir</b> setelah blok dijalankan</td><td><b>Minimal 1 kali</b></td><td>Menu program &amp; validasi input dari user</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="slide-crop">
+    <img src="img/08-s7.png" alt="Flowchart FOR Slide 7">
+  </div>
+
+  <div class="sec">2. Break vs Continue</div>
+  <ul>
+    <li><code class="inline-c">break;</code> → Menghentikan perulangan secara paksa dan langsung melompat keluar dari blok loop terdekat.</li>
+    <li><code class="inline-c">continue;</code> → Mengabaikan sisa instruksi di iterasi saat ini dan langsung melompat ke pengecekan kondisi / kenaikan iterasi berikutnya.</li>
+  </ul>
+
+  <div class="contoh">
+    <span class="lbl2">DRILL RESMI SLIDE 28 &amp; 29</span>
+    <pre class="c-code">
+<span class="com">/* Kasus CONTINUE: Angka 5 dilewati */</span>
+<span class="kwd">for</span>(x=<span class="num">1</span>; x&lt;=<span class="num">10</span>; x++) {
+    <span class="kwd">if</span> (x == <span class="num">5</span>) <span class="kwd">continue</span>;
+    <span class="kwd">printf</span>(<span class="str">"%d "</span>, x);
+}
+<span class="com">/* Output: 1 2 3 4 6 7 8 9 10 */</span>
+
+<span class="com">/* Kasus BREAK: Berhenti total saat x == 5 */</span>
+<span class="kwd">for</span>(x=<span class="num">1</span>; x&lt;=<span class="num">10</span>; x++) {
+    <span class="kwd">if</span> (x == <span class="num">5</span>) <span class="kwd">break</span>;
+    <span class="kwd">printf</span>(<span class="str">"%d "</span>, x);
+}
+<span class="com">/* Output: 1 2 3 4 */</span>
+    </pre>
+  </div>
+</section>
+
+<!-- ================= MODUL 6 ================= -->
+<section class="sheet" id="m6">
+  <div class="head">
+    <div class="badge">M6</div>
+    <div>
+      <h2>Modul 6 · Pointers and Arrays (Sesi 9-10)</h2>
+      <div class="sub">Slide Resmi: 09_pointers_arrays.pptx (40 slide) · Sesi 9-10</div>
+    </div>
+  </div>
+
+  <div class="analogi">
+    <h4>Analogi: Rumah vs Alamat Rumah</h4>
+    <p>Variabel biasa seperti sebuah rumah yang berisi perabotan. Pointer adalah selembar kertas yang bertuliskan koordinat GPS rumah tersebut. Operator <code class="inline-c">&amp;</code> (address-of) digunakan untuk mencari alamat rumahnya. Operator <code class="inline-c">*</code> (dereference) dipakai untuk pergi ke alamat itu dan mengambil perabotan di dalamnya.</p>
+  </div>
+
+  <div class="sec">1. Pointer Constant vs Pointer Variable</div>
+  <div class="trap-card">
+    <b>Array Nama adalah Pointer Constant!</b>
+    <p>Jika dideklarasikan <code class="inline-c">int B[4];</code> dan <code class="inline-c">int *ptr;</code>:</p>
+    <ul>
+      <li><code class="inline-c">ptr = B;</code> → <b>BENAR</b> (alamat elemen pertama disalin ke pointer).</li>
+      <li><code class="inline-c">ptr++;</code> → <b>BENAR</b> (pointer variable bisa bergeser ke elemen berikutnya).</li>
+      <li><code class="inline-c">B = ptr;</code> → <b>ERROR!</b> <code class="inline-c">B</code> adalah pointer konstan (alamat array tidak boleh diubah).</li>
+      <li><code class="inline-c">B++;</code> → <b>ERROR!</b> Alamat fisik awal array tidak bisa digeser.</li>
+    </ul>
+  </div>
+
+  <div class="slide-crop">
+    <img src="img/09-s10.png" alt="Ilustrasi Array 1D Slide 10">
+  </div>
+
+  <div class="sec">2. Akses Elemen: Notasi Index vs Aritmatika Pointer</div>
+  <p>Dua penulisan ini 100% identik di mata compiler C:</p>
+  <div class="formula">
+    <b>arr[i] ≡ *(arr + i)</b><br>
+    <b>&amp;arr[i] ≡ (arr + i)</b>
+  </div>
+  <p>Untuk array 2 dimensi <code class="inline-c">matrix[row][col]</code>:</p>
+  <div class="formula">
+    <b>matrix[i][j] ≡ *(*(matrix + i) + j)</b>
+  </div>
+
+  <div class="sec">3. Fungsi Manipulasi String Standar (string.h)</div>
+  <div class="tblwrap">
+    <table>
+      <thead><tr><th>Fungsi</th><th>Cara Kerja</th><th>Contoh &amp; Catatan Penting</th></tr></thead>
+      <tbody>
+        <tr><td><code class="inline-c">strlen(str)</code></td><td>Menghitung panjang string</td><td>Hanya menghitung karakter huruf, <b>TIDAK</b> menghitung <code class="inline-c">'\0'</code></td></tr>
+        <tr><td><code class="inline-c">strcpy(dst, src)</code></td><td>Menyalin string sumber ke tujuan</td><td>Pastikan ukuran <code class="inline-c">dst</code> cukup besar untuk menampung null-terminator</td></tr>
+        <tr><td><code class="inline-c">strcmp(s1, s2)</code></td><td>Membandingkan dua string (ASCII)</td><td>Return <b>0 jika sama persis</b>, &lt;0 jika s1 &lt; s2, &gt;0 jika s1 &gt; s2</td></tr>
+        <tr><td><code class="inline-c">strcat(dst, src)</code></td><td>Menggabungkan string ke ujung dst</td><td>Karakter <code class="inline-c">'\0'</code> di akhir <code class="inline-c">dst</code> akan ditimpa dengan awal <code class="inline-c">src</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ================= MODUL 7 ================= -->
+<section class="sheet" id="m7">
+  <div class="head">
+    <div class="badge">M7</div>
+    <div>
+      <h2>Modul 7 · Function and Recursion (Sesi 13-14)</h2>
+      <div class="sub">Slide Resmi: 13_function_recursion.pptx (44 slide) · Sesi 13-14</div>
+    </div>
+  </div>
+
+  <div class="sec">1. Function Prototype &amp; Urutan Kompilasi</div>
+  <p>Jika sebuah fungsi didefinisikan di bawah fungsi pemanggilnya (<code class="inline-c">main()</code>), compiler C memerlukan <b>Function Prototype</b> di atas <code class="inline-c">main()</code> agar mengenali tipe kembalian dan jumlah serta tipe parameternya.</p>
+  <pre class="c-code">
+<span class="pp">#include</span> <span class="str">&lt;stdio.h&gt;</span>
+
+<span class="com">/* Prototipe Fungsi */</span>
+<span class="typ">int</span> <span class="kwd">hitungMaks</span>(<span class="typ">int</span> a, <span class="typ">int</span> b);
+
+<span class="typ">int</span> <span class="kwd">main</span>() {
+    <span class="typ">int</span> m = <span class="kwd">hitungMaks</span>(<span class="num">10</span>, <span class="num">25</span>);
+    <span class="kwd">return</span> <span class="num">0</span>;
+}
+
+<span class="typ">int</span> <span class="kwd">hitungMaks</span>(<span class="typ">int</span> a, <span class="typ">int</span> b) {
+    <span class="kwd">return</span> (a &gt; b) ? a : b;
+}
+  </pre>
+
+  <div class="sec">2. Passing Parameter: By Value vs By Reference</div>
+  <ul>
+    <li><b>Pass by Value:</b> Nilai variabel disalin. Perubahan pada parameter formal di dalam fungsi <b>TIDAK</b> mengubah nilai variabel asli di pemanggil.</li>
+    <li><b>Pass by Reference (Location):</b> Alamat memori variabel dikirim menggunakan pointer. Perubahan nilai di dalam fungsi <b>AKAN MERUBAH</b> variabel asli di pemanggil.</li>
+  </ul>
+
+  <div class="sec">3. Rekursi: Base Case &amp; Call Stack</div>
+  <p>Fungsi rekursif memanggil dirinya sendiri. Dua bagian wajib rekursif:</p>
+  <ol>
+    <li><b>Base Case:</b> Kondisi penghenti yang langsung mengembalikan nilai konstan tanpa pemanggilan rekursif lagi.</li>
+    <li><b>Reduction Step:</b> Pemanggilan rekursif dengan argumen yang konvergen / semakin mendekati base case.</li>
+  </ol>
+
+  <div class="slide-crop">
+    <img src="img/13-s28.png" alt="Recursion Trace Slide 28">
+  </div>
+</section>
+
+<!-- ================= CHEAT SHEET ================= -->
+<section class="sheet" id="cheat">
+  <div class="head">
+    <div class="badge">A4</div>
+    <div>
+      <h2>Cheat Sheet A4 — Inti Rumus &amp; Pola Tracing</h2>
+      <div class="sub">Rancangan ringkasan 1 lembar yang mencakup semua tabel, sintaks kritis, dan pola ujian.</div>
+    </div>
+  </div>
+
+  <div class="sec">1. Tabel Hirarki Operator &amp; Asosiatif (Wajib Hafal)</div>
+  <div class="tblwrap">
+    <table>
+      <thead><tr><th>Prioritas</th><th>Operator</th><th>Asosiatif</th></tr></thead>
+      <tbody>
+        <tr><td>1 (Tertinggi)</td><td><code class="inline-c">() [] -&gt; .</code></td><td>Kiri ke Kanan</td></tr>
+        <tr><td>2</td><td><code class="inline-c">++ -- ! ~ + - (type) * &amp; sizeof</code> (Unary)</td><td><b>Kanan ke Kiri</b></td></tr>
+        <tr><td>3</td><td><code class="inline-c">* / %</code></td><td>Kiri ke Kanan</td></tr>
+        <tr><td>4</td><td><code class="inline-c">+ -</code></td><td>Kiri ke Kanan</td></tr>
+        <tr><td>5</td><td><code class="inline-c">&lt;&lt; &gt;&gt;</code> (Shift)</td><td>Kiri ke Kanan</td></tr>
+        <tr><td>6</td><td><code class="inline-c">&lt; &lt;= &gt; &gt;=</code></td><td>Kiri ke Kanan</td></tr>
+        <tr><td>7</td><td><code class="inline-c">== !=</code></td><td>Kiri ke Kanan</td></tr>
+        <tr><td>8</td><td><code class="inline-c">&amp;</code> (Bitwise AND)</td><td>Kiri ke Kanan</td></tr>
+        <tr><td>9</td><td><code class="inline-c">^</code> (Bitwise XOR)</td><td>Kiri ke Kanan</td></tr>
+        <tr><td>10</td><td><code class="inline-c">|</code> (Bitwise OR)</td><td>Kiri ke Kanan</td></tr>
+        <tr><td>11</td><td><code class="inline-c">&amp;&amp;</code> (Logical AND)</td><td>Kiri ke Kanan</td></tr>
+        <tr><td>12</td><td><code class="inline-c">||</code> (Logical OR)</td><td>Kiri ke Kanan</td></tr>
+        <tr><td>13</td><td><code class="inline-c">?:</code> (Ternary)</td><td><b>Kanan ke Kiri</b></td></tr>
+        <tr><td>14 (Terendah)</td><td><code class="inline-c">= += -= *= /= %= &lt;&lt;= &gt;&gt;= &amp;= ^= |=</code></td><td><b>Kanan ke Kiri</b></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ================= 10 JEBAKAN NILAI ================= -->
+<section class="sheet" id="trap">
+  <div class="head">
+    <div class="badge">!</div>
+    <div>
+      <h2>10 Jebakan Nilai AlProg (Wajib Dibaca Sebelum Ujian)</h2>
+      <div class="sub">Dihimpun dari pola kesalahan fatal mahasiswa BINUS di semester-semester sebelumnya.</div>
+    </div>
+  </div>
+
+  <div class="bedah">
+    <div class="top"><span class="no">1</span><b>Pembagian Bulat (Integer Division Truncation)</b></div>
+    <div class="soal">Menulis <code class="inline-c">float x = 7 / 2;</code> menghasilkan nilai berapa?</div>
+    <div class="jawab"><b>Jawab: 3.000000, bukan 3.5!</b> Karena kedua operan adalah integer, pembagian bulat dilakukan terlebih dahulu menghasilkan 3, baru diubah jadi float. Tulis <code class="inline-c">7.0 / 2</code> atau <code class="inline-c">(float)7 / 2</code>.</div>
+  </div>
+
+  <div class="bedah">
+    <div class="top"><span class="no">2</span><b>Operator Kesetaraan (==) vs Penugasan (=)</b></div>
+    <div class="soal">Menulis <code class="inline-c">if (x = 5) { ... }</code> di dalam pengujian logika.</div>
+    <div class="jawab"><b>Jawab: Selalu TRUE!</b> Tanda <code class="inline-c">=</code> memasukkan angka 5 ke dalam variabel <code class="inline-c">x</code>. Di C, angka non-zero dianggap TRUE, sehingga blok di dalam if akan selalu berjalan. Gunakan selalu <code class="inline-c">==</code> untuk perbandingan.</div>
+  </div>
+
+  <div class="bedah">
+    <div class="top"><span class="no">3</span><b>Dangling Else Problem pada Nested If</b></div>
+    <div class="soal">Pada struktur <code class="inline-c">if (a) if (b) s1; else s2;</code>, klausa else milik siapa?</div>
+    <div class="jawab"><b>Jawab: Milik if kedua!</b> Bahasa C selalu memasangkan <code class="inline-c">else</code> dengan <code class="inline-c">if</code> terdekat yang belum memiliki pasangan, kecuali dikurung dengan kurung kurawal <code class="inline-c">{ }</code>.</div>
+  </div>
+
+  <div class="bedah">
+    <div class="top"><span class="no">4</span><b>Perulangan for Berakhir Titik Koma (;)</b></div>
+    <div class="soal"><code class="inline-c">for(i=0; i&lt;10; i++); printf("%d", i);</code></div>
+    <div class="jawab"><b>Jawab: Hanya mencetak 10 sekali!</b> Tanda titik koma di ujung header <code class="inline-c">for</code> membuat perulangan berjalan dengan bodi kosong sampai <code class="inline-c">i == 10</code>.</div>
+  </div>
+
+  <div class="bedah">
+    <div class="top"><span class="no">5</span><b>Array Index Out of Bounds (Off-By-One)</b></div>
+    <div class="soal">Array <code class="inline-c">int a[10];</code> diakses sampai <code class="inline-c">a[10]</code>.</div>
+    <div class="jawab"><b>Jawab: Undefined Behavior / Crash!</b> Indeks array C dimulai dari 0 sampai <span class="m">N - 1</span>. Untuk ukuran 10, indeks valid adalah 0 sampai 9. Mengakses <code class="inline-c">a[10]</code> membaca memori liar di luar array.</div>
+  </div>
+
+  <div class="bedah">
+    <div class="top"><span class="no">6</span><b>strcmp Sama = 0, Bukan 1</b></div>
+    <div class="soal">Dua string identik dibandingkan dengan <code class="inline-c">strcmp(s1, s2)</code>.</div>
+    <div class="jawab"><b>Jawab: return 0!</b> Nilai 0 berarti "tidak ada selisih". Banyak yang salah pakai <code class="inline-c">if (strcmp(a,b))</code> lalu mengira itu true saat sama — justru kebalikannya. Yang benar: <code class="inline-c">if (strcmp(a,b) == 0)</code>.</div>
+  </div>
+
+  <div class="bedah">
+    <div class="top"><span class="no">7</span><b>sizeof(array) vs sizeof(pointer)</b></div>
+    <div class="soal"><code class="inline-c">int a[10]; printf("%d", sizeof(a)/sizeof(a[0]));</code> lalu hal sama dilakukan di dalam fungsi.</div>
+    <div class="jawab"><b>Jawab: 10 di main, tapi 2 (atau 1) di dalam fungsi!</b> Saat array dikirim ke fungsi, ia meluruh (decay) menjadi pointer. <code class="inline-c">sizeof</code> jadi ukuran pointer, bukan total array.</div>
+  </div>
+
+  <div class="bedah">
+    <div class="top"><span class="no">8</span><b>scanf("%s") Berhenti di Spasi</b></div>
+    <div class="soal">Input user: <code class="inline-c">Good Morning</code>, dibaca dengan <code class="inline-c">scanf("%s", s)</code>.</div>
+    <div class="jawab"><b>Jawab: s hanya berisi "Good"!</b> <code class="inline-c">%s</code> berhenti di karakter whitespace pertama. Untuk satu baris penuh pakai <code class="inline-c">gets(s)</code> atau <code class="inline-c">scanf(" %[^
+]", s)</code>.</div>
+  </div>
+
+  <div class="bedah">
+    <div class="top"><span class="no">9</span><b>Bandingkan float dengan ==</b></div>
+    <div class="soal"><code class="inline-c">if (0.1 + 0.2 == 0.3)</code></div>
+    <div class="jawab"><b>Jawab: FALSE!</b> Floating point disimpan dalam biner, jadi ada galat pembulatan halus. Bandingkan dengan selisih toleransi: <code class="inline-c">fabs(a - b) &lt; 1e-9</code>.</div>
+  </div>
+
+  <div class="bedah">
+    <div class="top"><span class="no">10</span><b>'A' vs "A"</b></div>
+    <div class="soal">Berapa <code class="inline-c">sizeof('A')</code> dan <code class="inline-c">sizeof("A")</code>?</div>
+    <div class="jawab"><b>Jawab: 4 dan 2!</b> <code class="inline-c">'A'</code> adalah <code class="inline-c">int</code> (nilai 65) di C, sedangkan <code class="inline-c">"A"</code> adalah array <code class="inline-c">char</code> berisi dua elemen: <code class="inline-c">'A'</code> dan <code class="inline-c">'\0'</code>.</div>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= RAIL KANAN ================= -->
+<aside class="rail right" id="railRight">
+  <div class="panel">
+    <h4>Rumus &amp; Notasi Cepat</h4>
+    <div class="formula"><b>Format Specifier</b><small>%d, %f, %.2f, %c, %s</small></div>
+    <div class="formula"><b>Pointer Array</b><small>arr[i] ≡ *(arr + i)</small></div>
+    <div class="formula"><b>Ternary</b><small>z = (a &gt; b) ? a : b;</small></div>
+    <div class="formula"><b>Bitwise AND</b><small>1 jika dua-duanya 1</small></div>
+    <div class="formula"><b>Bitwise XOR</b><small>1 jika bit berbeda</small></div>
+    <div class="formula"><b>Shift Left</b><small>A &lt;&lt; k ≡ A * 2^k</small></div>
+    <div class="formula"><b>Shift Right</b><small>A &gt;&gt; k ≡ A / 2^k</small></div>
+    <div class="formula"><b>String Terminator</b><small>Wajib akhiri '\0'</small></div>
+  </div>
+  <div class="panel" style="background:#eaf2fb;border-color:#b9d5f3">
+    <h4 style="color:#1f5fa8;border-bottom-color:rgba(31,95,168,.3)">Kontrol Cepat</h4>
+    <div class="kv"><span>Halaman Depan</span><a href="index.html" style="color:var(--blue);font-weight:700">Index</a></div>
+    <div class="kv"><span>Drill 24 Soal</span><a href="latihan.html" style="color:var(--blue);font-weight:700">Latihan</a></div>
+  </div>
+</aside>
+
+</div>
+
+</body>
+</html>
